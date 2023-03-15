@@ -513,6 +513,27 @@ namespace Nop.Core
             return request.Headers["X-Requested-With"] == "XMLHttpRequest";
         }
 
+        public string ResolveUrl(string url)
+        {
+            if (url == null)
+                return null;
+
+            if (url.Length == 0 || url[0] == '#' || url.StartsWith("javascript:", StringComparison.OrdinalIgnoreCase))
+                return url;
+
+            Uri originalUri;
+            if (Uri.TryCreate(url, UriKind.Absolute, out originalUri))
+            {
+                // The URL is already absolute
+                return url;
+            }
+
+            // The URL is relative, so resolve it using the HttpContext
+            var httpRequest = _httpContextAccessor.HttpContext.Request;
+            var baseUrl = $"{httpRequest.Scheme}://{httpRequest.Host}{httpRequest.PathBase}";
+            return new Uri(new Uri(baseUrl), url).ToString();
+        }
+
         #endregion
     }
 }

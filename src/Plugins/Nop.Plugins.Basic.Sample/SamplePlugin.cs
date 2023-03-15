@@ -1,11 +1,8 @@
-﻿using System.Collections.Generic;
-using Nop.Services.Cms;
-using Nop.Services.Plugins;
-using Nop.Web.Framework.Infrastructure;
+﻿using Nop.Services.Plugins;
 
 namespace Nop.Plugins.Basic.Sample
 {
-    public class SamplePlugin  : BasePlugin, IWidgetPlugin
+    public class SamplePlugin  : BasePlugin
     {
         public override void Install()
         {
@@ -16,19 +13,6 @@ namespace Nop.Plugins.Basic.Sample
         {
             base.Uninstall();
         }
-
         
-
-        public IList<string> GetWidgetZones()
-        {
-            return new List<string> { PublicWidgetZones.HomepageBeforeNews };
-        }
-
-        public string GetWidgetViewComponentName(string widgetZone)
-        {
-            return "BasicSample";
-        }
-
-        public bool HideInWidgetList => false;
     } 
 }

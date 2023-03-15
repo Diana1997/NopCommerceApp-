@@ -121,5 +121,7 @@ namespace Nop.Core
         /// <param name="request">HTTP request</param>
         /// <returns>Result</returns>
         bool IsAjaxRequest(HttpRequest request);
+
+        string ResolveUrl(string url);
     }
 }
