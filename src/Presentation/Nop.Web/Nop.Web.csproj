@@ -50,6 +50,11 @@
     <Folder Include="Plugins\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Plugins\Basic.Sample\Nop.Plugins.Basic.Sample.deps.json" />
+    <_ContentIncludedByDefault Remove="Plugins\Basic.Sample\plugin.json" />
+  </ItemGroup>
+
   <!-- This target execute after "Build" target.
     We use it to clean up folder with plugins from unnecessary and obsolete libraries. -->
   <Target Name="NopTarget" AfterTargets="Build">
