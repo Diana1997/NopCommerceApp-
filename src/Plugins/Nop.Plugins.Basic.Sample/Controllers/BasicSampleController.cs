@@ -18,7 +18,7 @@ namespace Nop.Plugins.Basic.Sample.Controllers
             _settingService = settingService;
             _storeContext = storeContext;
         }
-
+        
         [Route("custom")]
         public IActionResult CustomEndpoint()
         {
@@ -51,6 +51,17 @@ namespace Nop.Plugins.Basic.Sample.Controllers
                 Url = model.Url
             });
             return Configure();
+        }
+
+        [Route("sync")]
+        [HttpGet]
+        public IActionResult Settings()
+        {
+            var storeScope = _storeContext.ActiveStoreScopeConfiguration;
+            var settings = _settingService.LoadSetting<BasicSamplePluginSettings>(storeScope);
+
+            ViewBag.Url = settings.Url;
+            return View("~/Plugins/Basic.Sample/Views/Settings.cshtml");
         }
     }
 }
