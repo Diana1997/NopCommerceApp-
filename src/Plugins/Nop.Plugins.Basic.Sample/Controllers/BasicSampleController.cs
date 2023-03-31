@@ -1,31 +1,29 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Nop.Core;
 using Nop.Plugins.Basic.Sample.Models;
 using Nop.Services.Configuration;
 using Nop.Web.Framework;
 using Nop.Web.Framework.Controllers;
+using Nop.Web.Framework.Mvc.Filters;
 
 namespace Nop.Plugins.Basic.Sample.Controllers
 {
+    [AuthorizeAdmin]
+    [Area(AreaNames.Admin)]
     public class BasicSampleController :  BasePluginController
     {
         private readonly ISettingService _settingService;
         private readonly IStoreContext _storeContext;
 
-        public BasicSampleController(ISettingService settingService,
+        public BasicSampleController(
+            ISettingService settingService,
             IStoreContext storeContext)
         {
             _settingService = settingService;
             _storeContext = storeContext;
         }
         
-        [Route("custom")]
-        public IActionResult CustomEndpoint()
-        {
-            return Redirect("https://www.google.com");
-        }
-        
-        [Area(AreaNames.Admin)]
         [HttpGet]
         public IActionResult Configure()
         {
@@ -39,7 +37,7 @@ namespace Nop.Plugins.Basic.Sample.Controllers
            return View("~/Plugins/Basic.Sample/Views/Configure.cshtml", model);
         }
 
-        [Area(AreaNames.Admin)]
+        
         [HttpPost]
         public IActionResult Configure(ConfigurationModel model)
         {
@@ -53,7 +51,7 @@ namespace Nop.Plugins.Basic.Sample.Controllers
             return Configure();
         }
 
-        [Route("sync")]
+        [Route("SLSyncPortal")]
         [HttpGet]
         public IActionResult Settings()
         {

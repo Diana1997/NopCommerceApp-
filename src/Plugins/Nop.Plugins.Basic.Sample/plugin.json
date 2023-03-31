@@ -1,11 +1,11 @@
 {
-  "Group": "Basic",
-  "FriendlyName": "Basic",
-  "SystemName": "Basic.Sample",
+  "Group": "FocusPoint",
+  "FriendlyName": "FocusPoint",
+  "SystemName": "FocusPoint.SLSyncPortal",
   "Version": "1.34",
   "SupportedVersions": [ "4.20" ],
   "Author": "Diana",
   "DisplayOrder": 1,
   "FileName": "Nop.Plugins.Basic.Sample.dll",
-  "Description": "Just for fun"
+  "Description": "The plugin will allow you to open the SLSync admin portal on the site."
 }
