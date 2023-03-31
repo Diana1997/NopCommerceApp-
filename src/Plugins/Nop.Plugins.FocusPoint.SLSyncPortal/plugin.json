@@ -6,6 +6,6 @@
   "SupportedVersions": [ "4.20" ],
   "Author": "Diana",
   "DisplayOrder": 1,
-  "FileName": "Nop.Plugins.Basic.Sample.dll",
+  "FileName": "Nop.Plugins.FocusPoint.SLSyncPortal.dll",
   "Description": "The plugin will allow you to open the SLSync admin portal on the site."
 }

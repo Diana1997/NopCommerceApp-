@@ -1,49 +1,29 @@
 ﻿using System.Collections.Generic;
-using Microsoft.AspNetCore.Routing;
 using Nop.Core;
 using Nop.Services.Cms;
 using Nop.Services.Plugins;
 using Nop.Web.Framework.Infrastructure;
+using OfficeOpenXml.FormulaParsing.Excel.Functions.Logical;
 
-namespace Nop.Plugins.Basic.Sample
+namespace Nop.Plugins.FocusPoint.SLSyncPortal
 {
-    public class SamplePlugin  : BasePlugin, IWidgetPlugin
+    public class SLSyncPortalPlugin  : BasePlugin, IWidgetPlugin
     {
         private readonly IWebHelper _webHelper;
 
-        public SamplePlugin(IWebHelper webHelper)
+        public SLSyncPortalPlugin(IWebHelper webHelper)
         {
             _webHelper = webHelper;
         }
-
-        public override void Install()
-        {
-            base.Install();
-        }
-
-        public override void Uninstall()
-        {
-            base.Uninstall();
-        }
-        
         
         /// <summary>
         /// Gets a configuration page URL
         /// </summary>
         public override string GetConfigurationPageUrl()
         {
-            return $"{_webHelper.GetStoreLocation()}Admin/BasicSample/Configure";
+            return $"{_webHelper.GetStoreLocation()}Admin/SLSyncPortal/Configure";
         }
-
-
-
-        public string GetWidgetViewComponentName(string widgetZone)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public bool HideInWidgetList { get; }
-
+        
         /// <summary>
         /// Gets widget zones where this widget should be rendered
         /// </summary>
@@ -52,5 +32,13 @@ namespace Nop.Plugins.Basic.Sample
         {
             return new List<string> { PublicWidgetZones.HomepageTop };
         }
+
+        public string GetWidgetViewComponentName(string widgetZone)
+        {
+            return "SLSyncPortal";
+        }
+        
+        public bool HideInWidgetList => false;
+
     } 
 }

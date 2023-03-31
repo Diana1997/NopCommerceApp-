@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <LangVersion>7.3</LangVersion>
-    <OutputPath>..\..\Presentation\Nop.Web\Plugins\Basic.Sample\</OutputPath>
+    <OutputPath>..\..\Presentation\Nop.Web\Plugins\FocusPoint.SLSyncPortal\</OutputPath>
     <OutDir>$(OutputPath)</OutDir>
     <CopyLocalLockFileAssemblies>false</CopyLocalLockFileAssemblies>
   </PropertyGroup>

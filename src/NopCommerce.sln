@@ -61,7 +61,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nop.Plugin.Misc.SendinBlue"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nop.Plugin.Tax.Avalara", "Plugins\Nop.Plugin.Tax.Avalara\Nop.Plugin.Tax.Avalara.csproj", "{2426B75D-23D4-41EF-8924-47650C8A18C7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nop.Plugins.Basic.Sample", "Plugins\Nop.Plugins.Basic.Sample\Nop.Plugins.Basic.Sample.csproj", "{8D712571-04E0-4325-AE9C-6591BC2BF194}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nop.Plugins.FocusPoint.SLSyncPortal", "Plugins\Nop.Plugins.FocusPoint.SLSyncPortal\Nop.Plugins.FocusPoint.SLSyncPortal.csproj", "{8D712571-04E0-4325-AE9C-6591BC2BF194}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
