@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.IO;
+using System.Net;
+using System.Security.Policy;
+using Microsoft.AspNetCore.Mvc;
 using Nop.Core;
 using Nop.Plugins.FocusPoint.SLSyncPortal.Models;
 using Nop.Services.Configuration;
@@ -52,7 +55,25 @@ namespace Nop.Plugins.FocusPoint.SLSyncPortal.Controllers
         [HttpGet]
         public IActionResult Settings()
         {
-            ViewBag.Url = GetSettings().Url;
+           var url = GetSettings().Url;
+
+            var request = WebRequest.Create(url);
+            request.Method = "GET";
+            string data = "init string";
+            using(var response = request.GetResponse())
+            {
+                using(var sr = response.GetResponseStream())
+                {
+                    using (var reader = new StreamReader(sr))
+                    {
+                         data = reader.ReadToEnd();
+                    }
+                               
+                }
+            }
+            
+            ViewBag.GetResponse = data;
+            ViewBag.Content = data;
             return View("~/Plugins/FocusPoint.SLSyncPortal/Views/Settings.cshtml");
         }
 
