@@ -1,0 +1,111 @@
+@using Nop.Plugins.FocusPoint.SLSyncPortal.Enums
+@model Nop.Plugins.FocusPoint.SLSyncPortal.Models.QueuesModel
+
+@{
+    Layout = "_ConfigurePlugin";
+}
+
+<div>
+    <button type="button" class="button">Clear</button>
+</div>
+
+<div>
+    <form asp-action="Index" asp-controller="Queues" method="get">
+            <div class="panel-group">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <label asp-for="Filter.From">From</label>
+                            </div>
+                            <div class="col-md-9">
+                                <input type="date" asp-for="Filter.From" asp-required="true"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <label asp-for="Filter.To">To</label>
+                            </div>
+                            <div class="col-md-9">
+                                <input type="date" asp-for="Filter.To" asp-required="true"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <label asp-for="Filter.To">Type</label>
+                            </div>
+                            <div class="col-md-9">
+                                <select asp-for="Filter.Type">
+                                             <option value="">All</option>
+                                             <option value="">Items</option>
+                                 </select>
+                            </div>
+                        </div>
+                       <div class="form-group">
+                        <div class="col-md-3">
+                            <label asp-for="Filter.Key">Key</label>
+                        </div>
+                        <div class="col-md-9">
+                            <input type="text" asp-for="Filter.Key" asp-required="true"/>
+                        </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-9 col-md-offset-3">
+                                <div class="input-group input-group-short">
+                                    <div class="input-group-text">
+                                        <input type="submit" name="file" class="btn btn-primary" value="Filter"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+        @*
+        <div class="form-group">
+            <input type="date" asp-for="Filter.From" asp-required="true"/>
+        </div>
+        <div class="form-group">
+            <input type="date" asp-for="Filter.To" asp-required="true"/>
+        </div>
+        <div class="form-group">
+            <select asp-for="Filter.Type">
+                <option value="">All</option>
+                <option value="">Items</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <input type="text" asp-for="Filter.Key" asp-required="true"/>
+        </div>
+        <div>
+            <input type="submit" value="Filter"/>
+        </div>*@
+    </form>
+</div>
+
+<div>
+    <table class="table table-bordered table-hover table-striped dataTable no-footer" width="100%" role="grid" style="margin-left: 0px; width: 1211px;">
+        <thead>
+        <tr class="row">
+            <th>Date</th>
+            <th>Type</th>
+            <th>Key</th>
+            <th>Value</th>
+            <th>Retry Count</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model.Items)
+        {
+            <tr class="row">
+                <td>@item.Date</td>
+                <td>@item.Type</td>
+                <td>@item.Key</td>
+                <td>@item.Value</td>
+                <td>@item.RetryCount</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>
