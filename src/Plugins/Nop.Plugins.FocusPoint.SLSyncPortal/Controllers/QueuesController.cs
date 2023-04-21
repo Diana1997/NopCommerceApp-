@@ -2,13 +2,14 @@ using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Nop.Plugins.FocusPoint.SLSyncPortal.Models;
 using Nop.Web.Framework;
+using Nop.Web.Framework.Controllers;
 using Nop.Web.Framework.Mvc.Filters;
 
 namespace Nop.Plugins.FocusPoint.SLSyncPortal.Controllers
 {
     [AuthorizeAdmin]
     [Area(AreaNames.Admin)]
-    public class QueuesController : Controller
+    public class QueuesController : BasePluginController
     {
         [HttpGet]
         public IActionResult Index()
