@@ -14,46 +14,54 @@ namespace Nop.Plugins.FocusPoint.SLSyncPortal.Servies
 {
     public class HttpService : IHttpService
     {
-          private readonly HttpClient _client;
+          private  HttpClient _client;
         private bool _disposedValue;
 
         public HttpService()
         {
-            _client = new HttpClient
-            {
-                Timeout = TimeSpan.FromMinutes(3)
-            };
+           
         }
 
 
         public async Task<TResponse> Get<TResponse>(string url, CancellationToken cancellationToken)
         {
-            ServicePointManager.ServerCertificateValidationCallback += (sender, cert, chain, sslPolicyErrors) => true;
-
-            
-            System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
-
-            var response = await _client.GetAsync(url, cancellationToken);
-            if (response.IsSuccessStatusCode)
+            try
             {
+                var handler = new HttpClientHandler()
+                {
+                    ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
+                };
 
-                var jsonString = await response.Content.ReadAsStringAsync();
+                _client = new HttpClient(handler);
+
+                var response = await _client.GetAsync(url, cancellationToken);
+                if (response.IsSuccessStatusCode)
+                {
+
+                    var jsonString = await response.Content.ReadAsStringAsync();
 
 
-                return  JsonConvert.DeserializeObject<TResponse>(jsonString);
+                    return  JsonConvert.DeserializeObject<TResponse>(jsonString);
+                }
+
+                if (response.StatusCode == HttpStatusCode.Forbidden)
+                {
+                    throw new RestApiResponseException((int)response.StatusCode, await response.Content.ReadAsStringAsync());
+                }
+
+                if (response.StatusCode == HttpStatusCode.NotFound)
+                {
+                    throw new RestApiResponseException((int)response.StatusCode, "EntityNotFound");
+                }
+
+                throw new RestApiResponseException("RequestFailed");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
             }
 
-            if (response.StatusCode == HttpStatusCode.Forbidden)
-            {
-                throw new RestApiResponseException((int)response.StatusCode, await response.Content.ReadAsStringAsync());
-            }
-
-            if (response.StatusCode == HttpStatusCode.NotFound)
-            {
-                throw new RestApiResponseException((int)response.StatusCode, "EntityNotFound");
-            }
-
-            throw new RestApiResponseException("RequestFailed");
         }
 
 
