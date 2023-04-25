@@ -19,16 +19,18 @@ namespace Nop.Plugins.FocusPoint.SLSyncPortal.Servies
 
         public HttpService()
         {
-            _client = new HttpClient { Timeout = TimeSpan.FromMinutes(3) };
+            var handler = new HttpClientHandler()
+            {
+                ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
+            };
+            _client = new HttpClient(handler) ;
         }
 
 
         public async Task<TResponse> Get<TResponse>(string url, CancellationToken cancellationToken)
         {
-            ServicePointManager.ServerCertificateValidationCallback += (sender, cert, chain, sslPolicyErrors) => true;
 
 
-            System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
 
             var response = await _client.GetAsync(url, cancellationToken);
             if (response.IsSuccessStatusCode)
@@ -55,10 +57,8 @@ namespace Nop.Plugins.FocusPoint.SLSyncPortal.Servies
 
         public async Task<string> Get(string url, CancellationToken cancellationToken)
         {
-            ServicePointManager.ServerCertificateValidationCallback += (sender, cert, chain, sslPolicyErrors) => true;
 
 
-            System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
 
             var response = await _client.GetAsync(url, cancellationToken);
 

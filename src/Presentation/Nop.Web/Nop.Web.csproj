@@ -65,6 +65,14 @@
     <_ContentIncludedByDefault Remove="Plugins\FocusPoint.SLSyncPortal\plugin.json" />
   </ItemGroup>
 
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Plugins\FocusPoint.SLSyncPortal\Views\Configure.cshtml" />
+    <UpToDateCheckInput Remove="Plugins\FocusPoint.SLSyncPortal\Views\Logs\Index.cshtml" />
+    <UpToDateCheckInput Remove="Plugins\FocusPoint.SLSyncPortal\Views\Queues\Index.cshtml" />
+    <UpToDateCheckInput Remove="Plugins\FocusPoint.SLSyncPortal\Views\Settings.cshtml" />
+    <UpToDateCheckInput Remove="Plugins\FocusPoint.SLSyncPortal\Views\_ViewImports.cshtml" />
+  </ItemGroup>
+
   <!-- This target execute after "Build" target.
     We use it to clean up folder with plugins from unnecessary and obsolete libraries. -->
   <Target Name="NopTarget" AfterTargets="Build">
