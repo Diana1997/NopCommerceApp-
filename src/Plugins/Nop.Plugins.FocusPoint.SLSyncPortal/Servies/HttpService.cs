@@ -14,54 +14,62 @@ namespace Nop.Plugins.FocusPoint.SLSyncPortal.Servies
 {
     public class HttpService : IHttpService
     {
-          private  HttpClient _client;
+        private readonly HttpClient _client;
         private bool _disposedValue;
 
         public HttpService()
         {
-           
+            _client = new HttpClient { Timeout = TimeSpan.FromMinutes(3) };
         }
 
 
         public async Task<TResponse> Get<TResponse>(string url, CancellationToken cancellationToken)
         {
-            try
+            ServicePointManager.ServerCertificateValidationCallback += (sender, cert, chain, sslPolicyErrors) => true;
+
+
+            System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+
+            var response = await _client.GetAsync(url, cancellationToken);
+            if (response.IsSuccessStatusCode)
             {
-                var handler = new HttpClientHandler()
-                {
-                    ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
-                };
-
-                _client = new HttpClient(handler);
-
-                var response = await _client.GetAsync(url, cancellationToken);
-                if (response.IsSuccessStatusCode)
-                {
-
-                    var jsonString = await response.Content.ReadAsStringAsync();
+                var jsonString = await response.Content.ReadAsStringAsync();
 
 
-                    return  JsonConvert.DeserializeObject<TResponse>(jsonString);
-                }
+                return JsonConvert.DeserializeObject<TResponse>(jsonString);
+            }
 
-                if (response.StatusCode == HttpStatusCode.Forbidden)
-                {
-                    throw new RestApiResponseException((int)response.StatusCode, await response.Content.ReadAsStringAsync());
-                }
+            if (response.StatusCode == HttpStatusCode.Forbidden)
+            {
+                throw new RestApiResponseException((int)response.StatusCode,
+                    await response.Content.ReadAsStringAsync());
+            }
 
-                if (response.StatusCode == HttpStatusCode.NotFound)
-                {
-                    throw new RestApiResponseException((int)response.StatusCode, "EntityNotFound");
-                }
+            if (response.StatusCode == HttpStatusCode.NotFound)
+            {
+                throw new RestApiResponseException((int)response.StatusCode, "EntityNotFound");
+            }
 
+            throw new RestApiResponseException("RequestFailed");
+        }
+
+        public async Task<string> Get(string url, CancellationToken cancellationToken)
+        {
+            ServicePointManager.ServerCertificateValidationCallback += (sender, cert, chain, sslPolicyErrors) => true;
+
+
+            System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+
+            var response = await _client.GetAsync(url, cancellationToken);
+
+            if (!response.IsSuccessStatusCode)
                 throw new RestApiResponseException("RequestFailed");
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
-            }
 
+
+            var jsonString = await response.Content.ReadAsStringAsync();
+
+
+            return jsonString;
         }
 
 
@@ -128,18 +136,16 @@ namespace Nop.Plugins.FocusPoint.SLSyncPortal.Servies
                 {
                     _client?.Dispose();
                 }
-                
+
                 _disposedValue = true;
             }
         }
-        
+
 
         public void Dispose()
         {
             Dispose(disposing: true);
             GC.SuppressFinalize(this);
         }
-
-      
     }
 }
