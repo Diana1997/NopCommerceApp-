@@ -16,8 +16,7 @@ namespace Nop.Plugins.FocusPoint.SLSyncPortal.Controllers
     public class SLSyncPortalController :  BasePluginController
     {
         private readonly ISettingService _settingService;
-        private readonly IStoreContext _storeContext;
-
+        private readonly IStoreContext _storeContext; 
         public SLSyncPortalController(
             ISettingService settingService,
             IStoreContext storeContext)
@@ -80,7 +79,7 @@ namespace Nop.Plugins.FocusPoint.SLSyncPortal.Controllers
 
         private SLSyncPortalPluginSettings GetSettings()
         {
-            int storeScope = _storeContext.ActiveStoreScopeConfiguration;
+            var storeScope = _storeContext.ActiveStoreScopeConfiguration;
             var settings = _settingService.LoadSetting<SLSyncPortalPluginSettings>(storeScope);
             return settings;
         }

@@ -18,7 +18,7 @@ namespace Nop.Plugins.FocusPoint.SLSyncPortal.Controllers
         private readonly IHttpService _httpService;
         private readonly ISettingService _settingService;
         private readonly IStoreContext _storeContext;
-
+        
         public LogsController(
             IHttpService httpService, 
             ISettingService settingService, 
@@ -33,8 +33,8 @@ namespace Nop.Plugins.FocusPoint.SLSyncPortal.Controllers
         public async Task<IActionResult> Index()
         {
             var settings = GetSettings();
-            var response = await _httpService.Get<LogResponse>($"{settings.Url}/portal/log", CancellationToken.None);
-            return View("~/Plugins/FocusPoint.SLSyncPortal/Views/Logs/Index.cshtml");
+            var response = await _httpService.Get($"{settings.Url}/portal/log", CancellationToken.None);
+            return View("~/Plugins/FocusPoint.SLSyncPortal/Views/Logs/Index.cshtml", response);
         }
         
         private SLSyncPortalPluginSettings GetSettings()
