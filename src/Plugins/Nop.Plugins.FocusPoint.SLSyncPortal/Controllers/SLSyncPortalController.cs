@@ -24,6 +24,12 @@ namespace Nop.Plugins.FocusPoint.SLSyncPortal.Controllers
             _settingService = settingService;
             _storeContext = storeContext;
         }
+
+        [HttpGet]
+        public IActionResult Index()
+        {
+            return View("~/Plugins/FocusPoint.SLSyncPortal/Views/Index.cshtml");
+        }
         
         [HttpGet]
         public IActionResult Configure()

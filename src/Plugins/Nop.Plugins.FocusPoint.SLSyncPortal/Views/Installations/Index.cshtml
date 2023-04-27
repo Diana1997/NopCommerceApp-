@@ -1,0 +1,35 @@
+@{
+    Layout = "_ConfigurePlugin";
+}
+
+<div>
+    <div style="padding: 5px">
+        <a type="button" class="btn btn-primary" asp-action="CreateUo" asp-controller="Installation" asp-area="Admin">Create.UO</a>
+    </div>
+    <div style="padding: 5px">
+        <a type="button" class="btn btn-primary" asp-action="PTN" asp-controller="Installation" asp-area="Admin">FIT.WS1</a>
+    </div>
+    <div style="padding: 5px">
+        <a type="button" class="btn btn-primary">Stored procedures</a>
+    </div>
+    <div style="padding: 5px">
+        <a type="button" class="btn btn-primary">Event UDT</a>
+    </div>
+</div>
+
+<div class="message">
+    @ViewBag.Response
+</div>
+
+<style>
+    
+    button{
+    width: 55%;
+    height: 35px;
+    margin-bottom: 5px;
+    }
+    
+    .message{
+    width: 650px;
+    }
+</style>

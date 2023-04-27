@@ -57,19 +57,26 @@ namespace Nop.Plugins.FocusPoint.SLSyncPortal.Servies
 
         public async Task<string> Get(string url, CancellationToken cancellationToken)
         {
+            try
+            {
+                
+                var response = await _client.GetAsync(url, cancellationToken);
+
+                if (!response.IsSuccessStatusCode)
+                    throw new RestApiResponseException("RequestFailed");
 
 
-
-            var response = await _client.GetAsync(url, cancellationToken);
-
-            if (!response.IsSuccessStatusCode)
-                throw new RestApiResponseException("RequestFailed");
+                var jsonString = await response.Content.ReadAsStringAsync();
 
 
-            var jsonString = await response.Content.ReadAsStringAsync();
+                return jsonString;
+            }
+            catch (Exception ex)
+            {
+                return $"Request failed with message: {ex.Message}";
+            }
 
 
-            return jsonString;
         }
 
 

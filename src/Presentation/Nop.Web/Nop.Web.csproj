@@ -63,6 +63,8 @@
     <_ContentIncludedByDefault Remove="Plugins\FocusPoint.SLSyncPortal\Views\_ViewImports.cshtml" />
     <_ContentIncludedByDefault Remove="Plugins\FocusPoint.SLSyncPortal\Nop.Plugins.FocusPoint.SLSyncPortal.deps.json" />
     <_ContentIncludedByDefault Remove="Plugins\FocusPoint.SLSyncPortal\plugin.json" />
+    <_ContentIncludedByDefault Remove="Plugins\FocusPoint.SLSyncPortal\Views\Connections\Index.cshtml" />
+    <_ContentIncludedByDefault Remove="Plugins\FocusPoint.SLSyncPortal\Views\Settings\Index.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -71,6 +73,7 @@
     <UpToDateCheckInput Remove="Plugins\FocusPoint.SLSyncPortal\Views\Queues\Index.cshtml" />
     <UpToDateCheckInput Remove="Plugins\FocusPoint.SLSyncPortal\Views\Settings.cshtml" />
     <UpToDateCheckInput Remove="Plugins\FocusPoint.SLSyncPortal\Views\_ViewImports.cshtml" />
+    <UpToDateCheckInput Remove="Plugins\FocusPoint.SLSyncPortal\Views\Configure.cshtml" />
   </ItemGroup>
 
   <!-- This target execute after "Build" target.

@@ -6,7 +6,7 @@
 }
 
 <div>
-    <button type="button" class="button">Clear</button>
+    <button type="button" class="button">Clear Queue</button>
 </div>
 
 <div>
@@ -19,7 +19,7 @@
                                 <label asp-for="Filter.From">From</label>
                             </div>
                             <div class="col-md-9">
-                                <input type="date" asp-for="Filter.From" asp-required="true"/>
+                                <input type="date" asp-for="Filter.From" asp-required="true" class="form-control"/>
                             </div>
                         </div>
                         <div class="form-group">
@@ -27,7 +27,7 @@
                                 <label asp-for="Filter.To">To</label>
                             </div>
                             <div class="col-md-9">
-                                <input type="date" asp-for="Filter.To" asp-required="true"/>
+                                <input type="date" asp-for="Filter.To" asp-required="true" class="form-control"/>
                             </div>
                         </div>
                         <div class="form-group">
@@ -35,7 +35,7 @@
                                 <label asp-for="Filter.To">Type</label>
                             </div>
                             <div class="col-md-9">
-                                <select asp-for="Filter.Type">
+                                <select asp-for="Filter.Type"  class="form-control" >
                                              <option value="">All</option>
                                              <option value="">Items</option>
                                  </select>
@@ -46,7 +46,7 @@
                             <label asp-for="Filter.Key">Key</label>
                         </div>
                         <div class="col-md-9">
-                            <input type="text" asp-for="Filter.Key" asp-required="true"/>
+                            <input type="text" asp-for="Filter.Key" asp-required="true" class="form-control"/>
                         </div>
                         </div>
                         <div class="form-group">
