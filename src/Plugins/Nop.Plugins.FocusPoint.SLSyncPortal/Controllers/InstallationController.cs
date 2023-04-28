@@ -50,5 +50,21 @@ namespace Nop.Plugins.FocusPoint.SLSyncPortal.Controllers
             ViewBag.Response = response;
             return View("~/Plugins/FocusPoint.SLSyncPortal/Views/Installations/Index.cshtml");
         }
+
+        [HttpGet]
+        public async Task<IActionResult> StoredProcedures()
+        {
+            var response = await _httpService.Get($"{_settings.Url}/portal/install/PTN", CancellationToken.None);
+            ViewBag.Response = response;
+            return View("~/Plugins/FocusPoint.SLSyncPortal/Views/Installations/Index.cshtml");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> EventUDT()
+        {
+            var response = await _httpService.Get($"{_settings.Url}/portal/install/PTN", CancellationToken.None);
+            ViewBag.Response = response;
+            return View("~/Plugins/FocusPoint.SLSyncPortal/Views/Installations/Index.cshtml");
+        }
     }
 }
