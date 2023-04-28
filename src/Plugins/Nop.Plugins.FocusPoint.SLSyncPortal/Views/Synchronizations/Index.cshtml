@@ -5,20 +5,23 @@
 
 <div>
     <div style="padding: 5px">
-        <button type="button" class="btn btn-primary">Full item sync</button>
+        <a type="button" class="btn btn-primary" asp-action="FullItemSync" asp-controller="Synchronization" asp-area="Admin">Full item sync</a>
     </div>
     <div style="padding: 5px">
-        <button type="button" class="btn btn-primary">Full BP Sync</button>
+        <a type="button" class="btn btn-primary"  asp-action="FullBPSync" asp-controller="Synchronization" asp-area="Admin">Full BP Sync</a>
     </div>
     <div style="padding: 5px">
-        <button type="button" class="btn btn-primary">Inventory sync</button>
+        <a type="button" class="btn btn-primary"  asp-action="InventorySync" asp-controller="Synchronization" asp-area="Admin">Inventory sync</a>
     </div>
     <div style="padding: 5px">
-        <button type="button" class="btn btn-primary">Inventory Delta sync</button>
+        <a type="button" class="btn btn-primary"  asp-action="InventoryDeltaSync" asp-controller="Synchronization" asp-area="Admin">Inventory Delta sync</a>
     </div>
 
 </div>
 
+<div class="message">
+    @ViewBag.Response
+</div>
 
 <style>
     button{

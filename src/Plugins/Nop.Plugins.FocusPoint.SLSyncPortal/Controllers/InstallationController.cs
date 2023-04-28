@@ -18,6 +18,7 @@ namespace Nop.Plugins.FocusPoint.SLSyncPortal.Controllers
         private readonly  SLSyncPortalPluginSettings _settings;
         private readonly IHttpService _httpService;
 
+        //400
         public InstallationController(
             ISettingService settingService,
             IStoreContext storeContext, 
@@ -44,9 +45,9 @@ namespace Nop.Plugins.FocusPoint.SLSyncPortal.Controllers
         }
         
         [HttpGet]
-        public async Task<IActionResult> PTN()
+        public async Task<IActionResult> InstallWs1()
         {
-            var response = await _httpService.Get($"{_settings.Url}/portal/install/PTN", CancellationToken.None);
+            var response = await _httpService.Get($"{_settings.Url}/portal/install/WS1", CancellationToken.None);
             ViewBag.Response = response;
             return View("~/Plugins/FocusPoint.SLSyncPortal/Views/Installations/Index.cshtml");
         }
@@ -54,7 +55,7 @@ namespace Nop.Plugins.FocusPoint.SLSyncPortal.Controllers
         [HttpGet]
         public async Task<IActionResult> StoredProcedures()
         {
-            var response = await _httpService.Get($"{_settings.Url}/portal/install/PTN", CancellationToken.None);
+            var response = await _httpService.Get($"{_settings.Url}/portal/install/StoredProcedures", CancellationToken.None);
             ViewBag.Response = response;
             return View("~/Plugins/FocusPoint.SLSyncPortal/Views/Installations/Index.cshtml");
         }
