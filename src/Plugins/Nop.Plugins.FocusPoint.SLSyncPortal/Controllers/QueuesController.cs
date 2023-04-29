@@ -1,8 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Nop.Core;
 using Nop.Plugins.FocusPoint.SLSyncPortal.Models;
+using Nop.Plugins.FocusPoint.SLSyncPortal.Servies;
+using Nop.Services.Configuration;
 using Nop.Web.Framework;
 using Nop.Web.Framework.Controllers;
 using Nop.Web.Framework.Mvc.Filters;
@@ -13,6 +18,18 @@ namespace Nop.Plugins.FocusPoint.SLSyncPortal.Controllers
     [Area(AreaNames.Admin)]
     public class QueuesController : BasePluginController
     {
+        private readonly IHttpService _httpService;
+        private readonly  SLSyncPortalPluginSettings _settings;
+
+        public QueuesController(
+            ISettingService settingService,
+            IStoreContext storeContext, 
+            IHttpService httpService)
+        {
+            _httpService = httpService;
+            _settings = settingService.LoadSetting<SLSyncPortalPluginSettings>(storeContext.ActiveStoreScopeConfiguration);
+        }
+        
         [HttpGet]
         public IActionResult Index(int page = 1, int pageSize = 1, [FromQuery] QueuesFilterModel filter = null)
         {
@@ -65,6 +82,13 @@ namespace Nop.Plugins.FocusPoint.SLSyncPortal.Controllers
             model.TotalPages = (int)Math.Ceiling((decimal)allItems.Count / pageSize);
 
             return View("~/Plugins/FocusPoint.SLSyncPortal/Views/Queues/Index.cshtml", model);
+        }
+        
+        [HttpGet]
+        public async Task<IActionResult> ClearQueue()
+        {
+            var response = await _httpService.Get($"{_settings.Url}/portal/clearQueue", CancellationToken.None);
+            return Json(new { success = true, message = "Queue cleared" });
         }
     }
 }

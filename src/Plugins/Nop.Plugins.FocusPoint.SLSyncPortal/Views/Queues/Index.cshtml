@@ -5,8 +5,9 @@
     Layout = "_ConfigurePlugin";
 }
 
+<a asp-action="Index" asp-controller="SLSyncPortal" asp-area="Admin">Back to plugin menu</a>
 <div>
-    <button  class="btn btn-primary" type="button">Clear Queue</button>
+    <button  class="btn btn-primary" type="button" id="clearQueueBtn">Clear Queue</button>
 </div>
 
 <div>
@@ -107,35 +108,58 @@
     </nav>
 </div>
 
-<style>
-    .page-item {
-        display: inline-block;
-        margin-right: 0.5rem;
-        font-size: 0.875rem;
-    }
-    
-    .page-link {
-        display: inline-block;
-        padding: 1rem 1.5rem;
-        color: #007bff;
-        background-color: #fff;
-        border: 1px solid #dee2e6;
-        border-radius: 0.25rem;
-        transition: all 0.3s ease-in-out;
-    }
-    
-    .page-link:hover,
-    .page-link:focus {
-        color: #0056b3;
-        text-decoration: none;
-        background-color: #e9ecef;
-        border-color: #dee2e6;
-    }
-    
-    .active .page-link {
-        color: #fff;
-        background-color: #007bff;
-        border-color: #007bff;
-    }
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
+<style>
+.page-item {
+    display: inline-block;
+    margin-right: 0.5rem;
+    font-size: 1.25rem;
+}
+
+.page-link {
+    display: inline-block;
+    padding: 1.5rem 2rem;
+    color: #007bff;
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+    border-radius: 0.25rem;
+    transition: all 0.3s ease-in-out;
+}
+
+.page-link:hover,
+.page-link:focus {
+    color: #0056b3;
+    text-decoration: none;
+    background-color: #e9ecef;
+    border-color: #dee2e6;
+}
+
+.active .page-link {
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+}
 </style>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<script src="~/Plugins/FocusPoint.SLSyncPortal/Scripts/notification.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#clearQueueBtn').click(function() {
+               $.ajax({
+                   url: '@Url.Action("ClearQueue", "Queues")',
+                   type: 'GET',
+                   dataType: 'html',
+                   success: function(result) {
+                        toastr.success('Action completed successfully.');
+                   },
+                   error: function(xhr, status, error) {
+                        toastr.error('Action failed.'); 
+                   }
+               });
+           });
+        
+    });
+</script>

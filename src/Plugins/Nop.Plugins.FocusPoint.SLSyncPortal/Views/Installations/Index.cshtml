@@ -2,22 +2,24 @@
     Layout = "_ConfigurePlugin";
 }
 
+<a asp-action="Index" asp-controller="SLSyncPortal" asp-area="Admin">Back to plugin menu</a>
+
 <div>
     <div style="padding: 5px">
-        <a type="button" class="btn btn-primary" asp-action="CreateUo" asp-controller="Installation" asp-area="Admin">Create.UO</a>
+        <button type="button" class="btn btn-primary" asp-action="CreateUo" asp-controller="Installation" asp-area="Admin">Create.UO</button>
     </div>
     <div style="padding: 5px">
-        <a type="button" class="btn btn-primary" asp-action="InstallWs1" asp-controller="Installation" asp-area="Admin">FIT.WS1</a>
+        <button type="button" class="btn btn-primary" asp-action="InstallWs1" asp-controller="Installation" asp-area="Admin">FIT.WS1</button>
     </div>
     <div style="padding: 5px">
-        <a type="button" class="btn btn-primary" asp-action="StoredProcedures" asp-controller="Installation" asp-area="Admin">Stored procedures</a>
+        <button type="button" class="btn btn-primary" asp-action="StoredProcedures" asp-controller="Installation" asp-area="Admin">Stored procedures</button>
     </div>
     <div style="padding: 5px">
-        <a type="button" class="btn btn-primary" asp-action="EventUDT" asp-controller="Installation" asp-area="Admin">Event UDT</a>
+        <button type="button" class="btn btn-primary" asp-action="EventUDT" asp-controller="Installation" asp-area="Admin">Event UDT</button>
     </div>
 </div>
 
-<div class="message">
+<div class="message" id="message"> 
     @ViewBag.Response
 </div>
 
