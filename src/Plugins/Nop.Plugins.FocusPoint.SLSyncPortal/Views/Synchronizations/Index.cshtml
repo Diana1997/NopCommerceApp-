@@ -3,24 +3,25 @@
     Layout = "_ConfigurePlugin";
 }
 
+<a asp-action="Index" asp-controller="SLSyncPortal" asp-area="Admin">Back to plugin menu</a>
+
 <div>
     <div style="padding: 5px">
-        <a type="button" class="btn btn-primary" asp-action="FullItemSync" asp-controller="Synchronization" asp-area="Admin">Full item sync</a>
+        <button type="button" class="btn btn-primary"  id="FullItemSync">Full item sync</button>
     </div>
     <div style="padding: 5px">
-        <a type="button" class="btn btn-primary"  asp-action="FullBPSync" asp-controller="Synchronization" asp-area="Admin">Full BP Sync</a>
+        <button type="button" class="btn btn-primary"  id="FullBPSync">Full BP Sync</button>
     </div>
     <div style="padding: 5px">
-        <a type="button" class="btn btn-primary"  asp-action="InventorySync" asp-controller="Synchronization" asp-area="Admin">Inventory sync</a>
+        <button type="button" class="btn btn-primary"   id="InventorySync">Inventory sync</button>
     </div>
     <div style="padding: 5px">
-        <a type="button" class="btn btn-primary"  asp-action="InventoryDeltaSync" asp-controller="Synchronization" asp-area="Admin">Inventory Delta sync</a>
+        <button type="button" class="btn btn-primary"   id="InventoryDeltaSync">Inventory Delta sync</button>
     </div>
 
 </div>
 
-<div class="message">
-    @ViewBag.Response
+<div class="message" id="message">
 </div>
 
 <style>
@@ -30,3 +31,36 @@
     margin-bottom: 5px;
     }
 </style>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<script src="~/Plugins/FocusPoint.SLSyncPortal/Scripts/notification.js"></script>
+<script>
+    $(document).ready(function () {
+        handleButtonClick('FullItemSync', '@Url.Action("FullItemSync", "Synchronization")');
+        handleButtonClick('FullBPSync', '@Url.Action("FullBPSync", "Synchronization")');
+        handleButtonClick('InventorySync', '@Url.Action("InventorySync", "Synchronization")');
+        handleButtonClick('InventoryDeltaSync', '@Url.Action("InventoryDeltaSync", "Synchronization")');
+        
+    });
+    
+    
+   function handleButtonClick(buttonId, actionUrl) {
+       $('#message').text('');
+       $('#' + buttonId).click(function() {
+           $.ajax({
+               url: actionUrl,
+               type: 'GET',
+               dataType: 'html',
+               success: function(result) {
+                     $("#message").text(result);
+                   toastr.success('Action completed successfully.');
+               },
+               error: function(xhr, status, error) {
+                   toastr.error('Action failed.');
+               }
+           });
+       });
+   }
+</script>

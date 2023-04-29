@@ -38,24 +38,21 @@ namespace Nop.Plugins.FocusPoint.SLSyncPortal.Controllers
         public async Task<IActionResult> FullItemSync()
         {
             var response = await _httpService.Get($"{_settings.Url}/portal/sync/fullItemSync", CancellationToken.None);
-            ViewBag.Response = response;
-            return View("~/Plugins/FocusPoint.SLSyncPortal/Views/Synchronizations/Index.cshtml");
+            return Json(response);
         }
         
         [HttpGet]
         public async Task<IActionResult> FullBPSync()
         {
             var response = await _httpService.Get($"{_settings.Url}/portal/sync/fullBPSync", CancellationToken.None);
-            ViewBag.Response = response;
-            return View("~/Plugins/FocusPoint.SLSyncPortal/Views/Synchronizations/Index.cshtml");
+            return Json(response);
         }
         
         [HttpGet]
         public async Task<IActionResult> InventorySync()
         {
             var response = await _httpService.Get($"{_settings.Url}/portal/sync/inventorySync", CancellationToken.None);
-            ViewBag.Response = response;
-            return View("~/Plugins/FocusPoint.SLSyncPortal/Views/Synchronizations/Index.cshtml");
+            return Json(response);
         }
         
                 
@@ -63,8 +60,7 @@ namespace Nop.Plugins.FocusPoint.SLSyncPortal.Controllers
         public async Task<IActionResult> InventoryDeltaSync()
         {
             var response = await _httpService.Get($"{_settings.Url}/portal/sync/inventoryDeltaSync", CancellationToken.None);
-            ViewBag.Response = response;
-            return View("~/Plugins/FocusPoint.SLSyncPortal/Views/Synchronizations/Index.cshtml");
+            return Json(response);
         }
     }
 }

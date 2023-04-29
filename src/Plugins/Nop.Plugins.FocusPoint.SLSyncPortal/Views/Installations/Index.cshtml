@@ -6,16 +6,16 @@
 
 <div>
     <div style="padding: 5px">
-        <button type="button" class="btn btn-primary" asp-action="CreateUo" asp-controller="Installation" asp-area="Admin">Create.UO</button>
+        <button type="button" class="btn btn-primary" id="createUo">Create.UO</button>
     </div>
     <div style="padding: 5px">
-        <button type="button" class="btn btn-primary" asp-action="InstallWs1" asp-controller="Installation" asp-area="Admin">FIT.WS1</button>
+        <button type="button" class="btn btn-primary"  id="FIT" >FIT.WS1</button>
     </div>
     <div style="padding: 5px">
-        <button type="button" class="btn btn-primary" asp-action="StoredProcedures" asp-controller="Installation" asp-area="Admin">Stored procedures</button>
+        <button type="button" class="btn btn-primary"  id="storedProcedures">Stored procedures</button>
     </div>
     <div style="padding: 5px">
-        <button type="button" class="btn btn-primary" asp-action="EventUDT" asp-controller="Installation" asp-area="Admin">Event UDT</button>
+        <button type="button" class="btn btn-primary"  id="eventUdt">Event UDT</button>
     </div>
 </div>
 
@@ -23,6 +23,8 @@
     @ViewBag.Response
 </div>
 
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
 <style>
     
     button{
@@ -35,3 +37,36 @@
     width: 650px;
     }
 </style>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<script src="~/Plugins/FocusPoint.SLSyncPortal/Scripts/notification.js"></script>
+<script>
+    $(document).ready(function () {
+        handleButtonClick('createUo', '@Url.Action("CreateUo", "Installation")');
+        handleButtonClick('FIT', '@Url.Action("InstallWs1", "Installation")');
+        handleButtonClick('storedProcedures', '@Url.Action("StoredProcedures", "Installation")');
+        handleButtonClick('eventUdt', '@Url.Action("EventUDT", "Installation")');
+        
+    });
+    
+    
+   function handleButtonClick(buttonId, actionUrl) {
+       $('#message').text('');
+       $('#' + buttonId).click(function() {
+           $.ajax({
+               url: actionUrl,
+               type: 'GET',
+               dataType: 'html',
+               success: function(result) {
+                     $("#message").text(result);
+                   toastr.success('Action completed successfully.');
+               },
+               error: function(xhr, status, error) {
+                   toastr.error('Action failed.');
+               }
+           });
+       });
+   }
+</script>

@@ -40,32 +40,28 @@ namespace Nop.Plugins.FocusPoint.SLSyncPortal.Controllers
         public async Task<IActionResult> CreateUo()
         {
             var response = await _httpService.Get($"{_settings.Url}/portal/install/Create.UO", CancellationToken.None);
-            ViewBag.Response = response;
-            return View("~/Plugins/FocusPoint.SLSyncPortal/Views/Installations/Index.cshtml");
+            return Json(response);
         }
         
         [HttpGet]
         public async Task<IActionResult> InstallWs1()
         {
             var response = await _httpService.Get($"{_settings.Url}/portal/install/WS1", CancellationToken.None);
-            ViewBag.Response = response;
-            return View("~/Plugins/FocusPoint.SLSyncPortal/Views/Installations/Index.cshtml");
+            return Json(response);
         }
 
         [HttpGet]
         public async Task<IActionResult> StoredProcedures()
         {
             var response = await _httpService.Get($"{_settings.Url}/portal/install/StoredProcedures", CancellationToken.None);
-            ViewBag.Response = response;
-            return View("~/Plugins/FocusPoint.SLSyncPortal/Views/Installations/Index.cshtml");
+            return Json(response);
         }
 
         [HttpGet]
         public async Task<IActionResult> EventUDT()
         {
             var response = await _httpService.Get($"{_settings.Url}/portal/install/PTN", CancellationToken.None);
-            ViewBag.Response = response;
-            return View("~/Plugins/FocusPoint.SLSyncPortal/Views/Installations/Index.cshtml");
+            return Json(response);
         }
     }
 }
