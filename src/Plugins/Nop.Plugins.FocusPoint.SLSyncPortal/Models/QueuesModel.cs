@@ -8,5 +8,9 @@ namespace Nop.Plugins.FocusPoint.SLSyncPortal.Models
     {
         public QueuesFilterModel Filter { set; get; }
         public IList<QueuesItem>  Items { set; get; }
+        public int CurrentPage { set; get; }
+        public int PageSize  { set; get; }
+        public int TotalPages   { set; get; }
+        
     }
 }

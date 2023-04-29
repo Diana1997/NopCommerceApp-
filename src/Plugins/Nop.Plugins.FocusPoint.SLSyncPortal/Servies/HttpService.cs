@@ -29,9 +29,7 @@ namespace Nop.Plugins.FocusPoint.SLSyncPortal.Servies
 
         public async Task<TResponse> Get<TResponse>(string url, CancellationToken cancellationToken)
         {
-
-
-
+            
             var response = await _client.GetAsync(url, cancellationToken);
             if (response.IsSuccessStatusCode)
             {
@@ -59,7 +57,7 @@ namespace Nop.Plugins.FocusPoint.SLSyncPortal.Servies
         {
             try
             {
-                
+                _client.Timeout = TimeSpan.FromSeconds(400);
                 var response = await _client.GetAsync(url, cancellationToken);
 
                 if (!response.IsSuccessStatusCode)
@@ -79,8 +77,7 @@ namespace Nop.Plugins.FocusPoint.SLSyncPortal.Servies
 
         }
 
-
-        /*public async Task<TResponse> Post<TResponse, TRequest>(string url, TRequest request, CancellationToken cancellationToken, List<JsonConverter> converters = null)
+        public async Task<TResponse> Post<TResponse, TRequest>(string url, TRequest request, CancellationToken cancellationToken)
         {
     
             var json = JsonConvert.SerializeObject(request);
@@ -98,7 +95,7 @@ namespace Nop.Plugins.FocusPoint.SLSyncPortal.Servies
         }
         
         
-
+/*
         public async Task<TResponse> Post<TResponse>(string url, CancellationToken cancellationToken)
         {
             var response = await _client.PostAsync(url, null, cancellationToken);

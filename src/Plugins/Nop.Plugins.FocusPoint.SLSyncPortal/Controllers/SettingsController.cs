@@ -37,7 +37,7 @@ namespace Nop.Plugins.FocusPoint.SLSyncPortal.Controllers
         [HttpPost]
         public async Task<IActionResult> Save(ServiceLayerSettings model)
         {
-
+            var response = await _httpService.Post<object,ServiceLayerSettings>($"{_settings.Url}/portal/saveSettings", model, CancellationToken.None);
             return RedirectToAction("Index");
         }
     }
