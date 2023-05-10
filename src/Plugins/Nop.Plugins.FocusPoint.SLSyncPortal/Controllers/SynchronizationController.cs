@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Nop.Core;
+using Nop.Plugins.FocusPoint.SLSyncPortal.Models;
 using Nop.Plugins.FocusPoint.SLSyncPortal.Servies;
 using Nop.Services.Configuration;
 using Nop.Web.Framework;
@@ -29,8 +30,8 @@ namespace Nop.Plugins.FocusPoint.SLSyncPortal.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            
-            return View("~/Plugins/FocusPoint.SLSyncPortal/Views/Synchronizations/Index.cshtml");
+            var model = new ReSyncObject();
+            return View("~/Plugins/FocusPoint.SLSyncPortal/Views/Synchronizations/Index.cshtml", model);
         }
         
         
@@ -60,6 +61,14 @@ namespace Nop.Plugins.FocusPoint.SLSyncPortal.Controllers
         public async Task<IActionResult> InventoryDeltaSync()
         {
             var response = await _httpService.Get($"{_settings.Url}/portal/sync/inventoryDeltaSync", CancellationToken.None);
+            return Json(response);
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> ReSyncObject(ReSyncObject model)
+        {
+            var response = await _httpService.Get($"{_settings.Url}/portal/sync?Object={model.Object}&Code={model.Code}", CancellationToken.None);
             return Json(response);
         }
     }

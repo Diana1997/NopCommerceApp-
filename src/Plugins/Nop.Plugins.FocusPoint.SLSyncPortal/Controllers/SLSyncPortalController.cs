@@ -1,9 +1,12 @@
 ﻿using System.IO;
 using System.Net;
 using System.Security.Policy;
+using System.Threading;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Nop.Core;
 using Nop.Plugins.FocusPoint.SLSyncPortal.Models;
+using Nop.Plugins.FocusPoint.SLSyncPortal.Servies;
 using Nop.Services.Configuration;
 using Nop.Web.Framework;
 using Nop.Web.Framework.Controllers;
@@ -16,18 +19,30 @@ namespace Nop.Plugins.FocusPoint.SLSyncPortal.Controllers
     public class SLSyncPortalController :  BasePluginController
     {
         private readonly ISettingService _settingService;
-        private readonly IStoreContext _storeContext; 
+        private readonly IStoreContext _storeContext;
+        private readonly IHttpService _httpService;
+
         public SLSyncPortalController(
             ISettingService settingService,
-            IStoreContext storeContext)
+            IStoreContext storeContext,
+            IHttpService httpService)
         {
             _settingService = settingService;
             _storeContext = storeContext;
+            _httpService = httpService;
         }
 
+   
         [HttpGet]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            var settings = GetSettings();
+            string version = string.Empty;
+            if(settings == null)
+            {
+                var response = await _httpService.Get($"{settings.Url}/portal/getVersion", CancellationToken.None);
+            }
+
             return View("~/Plugins/FocusPoint.SLSyncPortal/Views/Index.cshtml");
         }
         

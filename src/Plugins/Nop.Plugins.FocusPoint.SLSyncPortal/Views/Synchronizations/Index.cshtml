@@ -1,3 +1,4 @@
+@model Nop.Plugins.FocusPoint.SLSyncPortal.Models.ReSyncObject
 
 @{
     Layout = "_ConfigurePlugin";
@@ -21,6 +22,34 @@
 
 </div>
 
+<div>
+    <p>ReSync object form</p>
+    <form asp-action="ReSyncObject" method="post" id="reSycnForm">
+        <div class="form-group">
+            <div class="col-md-3">
+                <label asp-for="Object">Object</label>
+            </div>
+            <div class="col-md-9">
+                <input type="text" asp-for="Object" class="form-control" />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-3">
+                <label asp-for="Code">Code</label>
+            </div>
+            <div class="col-md-9">
+                <input type="text" asp-for="Code" class="form-control" />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-12">
+                <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+
 <div class="message" id="message">
 </div>
 
@@ -43,9 +72,28 @@
         handleButtonClick('InventorySync', '@Url.Action("InventorySync", "Synchronization")');
         handleButtonClick('InventoryDeltaSync', '@Url.Action("InventoryDeltaSync", "Synchronization")');
         
+
+
     });
-    
-    
+
+
+    $('#reSycnForm').submit(function (e) {
+        e.preventDefault(); // prevent default form submission behavior
+        var form = $(this);
+        $.ajax({
+            url: form.attr('action'),
+            type: 'Post',
+            data: form.serialize(),
+            success: function (result) {
+
+                toastr.success('Action completed successfully.');
+            },
+            error: function (xhr, status, error) {
+                toastr.error('Action failed.');
+            }
+        });
+    });
+
    function handleButtonClick(buttonId, actionUrl) {
        $('#message').text('');
        $('#' + buttonId).click(function() {
