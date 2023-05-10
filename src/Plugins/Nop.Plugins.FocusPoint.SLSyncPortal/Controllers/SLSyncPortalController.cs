@@ -38,12 +38,12 @@ namespace Nop.Plugins.FocusPoint.SLSyncPortal.Controllers
         {
             var settings = GetSettings();
             string version = string.Empty;
-            if(settings == null)
+            if(settings != null)
             {
-                var response = await _httpService.Get($"{settings.Url}/portal/getVersion", CancellationToken.None);
+                version = await _httpService.Get($"{settings.Url}/portal/getVersion", CancellationToken.None);
             }
 
-            return View("~/Plugins/FocusPoint.SLSyncPortal/Views/Index.cshtml");
+            return View("~/Plugins/FocusPoint.SLSyncPortal/Views/Index.cshtml", version);
         }
         
         [HttpGet]
