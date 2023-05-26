@@ -1,4 +1,6 @@
-﻿using System.Threading;
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Nop.Core;
@@ -33,7 +35,8 @@ namespace Nop.Plugins.FocusPoint.SLSyncPortal.Controllers
         public async Task<IActionResult> Index()
         {
             var settings = GetSettings();
-            var response = await _httpService.Get($"{settings.Url}/portal/log", CancellationToken.None);
+            var response = await _httpService.Get<IList<string>>($"{settings.Url}/portal/log", CancellationToken.None);
+            
             return View("~/Plugins/FocusPoint.SLSyncPortal/Views/Logs/Index.cshtml", response);
         }
         
