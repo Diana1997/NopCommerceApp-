@@ -31,7 +31,7 @@ namespace Nop.Plugins.FocusPoint.SLSyncPortal.Controllers
         }
         
         [HttpGet]
-        public IActionResult Index(int page = 1, int pageSize = 1, [FromQuery] QueuesFilterModel filter = null)
+        public async Task<IActionResult> Index(int page = 1, int pageSize = 1, [FromQuery] QueuesFilterModel filter = null)
         {
             var model = new QueuesModel();
             var allItems = new List<QueuesItem>()
@@ -75,6 +75,10 @@ namespace Nop.Plugins.FocusPoint.SLSyncPortal.Controllers
                     filteredItems = filteredItems.Where(i => i.Key == filter.Key).ToList();
                 }
             }*/
+
+
+           var result = await _httpService.Get($"{_settings.Url}//portal/queue?page-number={page}&page-size={pageSize}",
+               CancellationToken.None); 
 
             model.Items = allItems.Skip((page - 1) * pageSize).Take(pageSize).ToList();
             model.CurrentPage = page;

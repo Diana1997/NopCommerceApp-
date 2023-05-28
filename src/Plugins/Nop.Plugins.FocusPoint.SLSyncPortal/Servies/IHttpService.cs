@@ -8,7 +8,7 @@ namespace Nop.Plugins.FocusPoint.SLSyncPortal.Servies
     {
 
         Task<TResponse> Get<TResponse>(string url, CancellationToken cancellationToken);
-        Task<string> Get(string url, CancellationToken cancellationToken);
+        Task<string> Get(string url, CancellationToken cancellationToken, bool setLongTimeout = false);
         Task<TResponse> Post<TResponse, TRequest>(string url, TRequest request, CancellationToken cancellationToken);
         /*Task<TResponse> Post<TResponse, TRequest>(string url, TRequest request, CancellationToken cancellationToken);
         Task<TResponse> Post<TResponse>(string url, CancellationToken cancellationToken);

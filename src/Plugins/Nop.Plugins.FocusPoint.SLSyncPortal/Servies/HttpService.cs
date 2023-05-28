@@ -53,11 +53,15 @@ namespace Nop.Plugins.FocusPoint.SLSyncPortal.Servies
             throw new RestApiResponseException("RequestFailed");
         }
 
-        public async Task<string> Get(string url, CancellationToken cancellationToken)
+        public async Task<string> Get(string url, CancellationToken cancellationToken, bool setLongTimeout = false)
         {
             try
             {
-                _client.Timeout = TimeSpan.FromSeconds(400);
+                if (setLongTimeout)
+                {
+                    _client.Timeout = TimeSpan.FromMinutes(10);
+                }
+
                 var response = await _client.GetAsync(url, cancellationToken);
 
                 if (!response.IsSuccessStatusCode)
