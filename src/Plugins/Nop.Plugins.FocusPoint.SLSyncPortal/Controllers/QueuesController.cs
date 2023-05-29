@@ -77,13 +77,13 @@ namespace Nop.Plugins.FocusPoint.SLSyncPortal.Controllers
             }*/
 
 
-           var result = await _httpService.Get($"{_settings.Url}//portal/queue?page-number={page}&page-size={pageSize}",
-               CancellationToken.None); 
+           var result = await _httpService.Get<IList<QueuesItem>>($"{_settings.Url}//portal/queue?page-number={page}&page-size={pageSize}",
+               CancellationToken.None);
 
-            model.Items = allItems.Skip((page - 1) * pageSize).Take(pageSize).ToList();
-            model.CurrentPage = page;
+           model.Items = result;//allItems.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+            /*model.CurrentPage = page;
             model.PageSize = pageSize;
-            model.TotalPages = (int)Math.Ceiling((decimal)allItems.Count / pageSize);
+            model.TotalPages = (int)Math.Ceiling((decimal)allItems.Count / pageSize);*/
 
             return View("~/Plugins/FocusPoint.SLSyncPortal/Views/Queues/Index.cshtml", model);
         }

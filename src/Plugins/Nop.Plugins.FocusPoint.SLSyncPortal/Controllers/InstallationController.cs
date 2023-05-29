@@ -39,7 +39,8 @@ namespace Nop.Plugins.FocusPoint.SLSyncPortal.Controllers
         [HttpGet]
         public async Task<IActionResult> CreateUo()
         {
-            var response = await _httpService.Get($"{_settings.Url}/portal/install/Create.UO", CancellationToken.None);
+            
+            var response = await _httpService.Get($"{_settings.Url}/portal/install/Create.UO", CancellationToken.None, true);
             return Json(response);
         }
         

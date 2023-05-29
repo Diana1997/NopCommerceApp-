@@ -86,8 +86,8 @@
             type: 'POST',
             data: form.serialize(),
             success: function (result) {
-                alert(result);
-               // toastr.success('Action completed successfully.');
+                $("#message").text(result);
+                toastr.success('Action completed successfully.');
             },
             error: function (xhr, status, error) {
                 toastr.error('Action failed.');

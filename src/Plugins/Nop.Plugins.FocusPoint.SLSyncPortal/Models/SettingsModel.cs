@@ -144,6 +144,14 @@ namespace Nop.Plugins.FocusPoint.SLSyncPortal.Models
         public bool EnableLivePriceFetchSync { get; set; }
         public bool EnableLogUpdateSync { get; set; }
         public bool EnableWS1Sync { get; set; }
+        
+        public bool EnableBPCatalogSync { get; set; }	
+        public string AttachmentPrefixSO { get; set; }	
+        public string AttachmentPrefixDV { get; set; }	
+        public string AttachmentPrefixQT { get; set; }	
+        public string AttachmentPrefixIV { get; set; }	
+        public bool MultipleAttachments { get; set; }	
+        public bool MultipleUnits { get; set; }
     }
     
     
