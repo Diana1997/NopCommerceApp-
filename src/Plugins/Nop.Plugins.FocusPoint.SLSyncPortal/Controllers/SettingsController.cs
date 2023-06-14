@@ -1,3 +1,7 @@
+using System.Collections;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -31,6 +35,26 @@ namespace Nop.Plugins.FocusPoint.SLSyncPortal.Controllers
         public async Task<IActionResult>  Index()
         {
             var response = await _httpService.Get<Root>($"{_settings.Url}/portal/settings", CancellationToken.None);
+
+            var model = response.ServiceLayerSettings;
+
+
+            IList<FormField> list = new List<FormField>();
+            foreach (var item in model)
+            {
+                if (!item.Key.StartsWith("_"))
+                {
+                    var field = new FormField()
+                    {
+                        Name = item.Key,
+                        Value = item.Value,
+                        Description = model.FirstOrDefault(x => x.Key.StartsWith($"_{item.Key}")).Value as string,
+                        FieldType  = model.FirstOrDefault(x => x.Key.StartsWith($"__{item.Key}")).Value as string,
+                    };
+                    list.Add(field);
+                }
+            }
+            
             return View("~/Plugins/FocusPoint.SLSyncPortal/Views/Settings/Index.cshtml", response.ServiceLayerSettings);
         }
 
@@ -41,4 +65,19 @@ namespace Nop.Plugins.FocusPoint.SLSyncPortal.Controllers
             return RedirectToAction("Index");
         }
     }
+}
+
+public class FormField
+{
+    public string Name { set; get; }
+    public object Value { set; get; }
+    public string Description { set; get; }
+    public string FieldType { set; get; }
+}
+
+public class FieldTypes
+{
+    public const string Int = "int";
+    public const string String = "string";
+    public const string Boolean = "bool";
 }

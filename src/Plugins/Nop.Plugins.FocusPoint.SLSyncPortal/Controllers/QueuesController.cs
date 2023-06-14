@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Nop.Core;
 using Nop.Plugins.FocusPoint.SLSyncPortal.Models;
+using Nop.Plugins.FocusPoint.SLSyncPortal.Responses;
 using Nop.Plugins.FocusPoint.SLSyncPortal.Servies;
 using Nop.Services.Configuration;
 using Nop.Web.Framework;
@@ -80,11 +81,14 @@ namespace Nop.Plugins.FocusPoint.SLSyncPortal.Controllers
            var result = await _httpService.Get<IList<QueuesItem>>($"{_settings.Url}//portal/queue?page-number={page}&page-size={pageSize}",
                CancellationToken.None);
 
-           model.Items = result;//allItems.Skip((page - 1) * pageSize).Take(pageSize).ToList();
-            /*model.CurrentPage = page;
+           var totalCountResponse = await _httpService.Get<QueueCountResponse>($"{_settings.Url}//portal/queue/count", CancellationToken.None);
+           
+            model.Items = result;//allItems.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+            model.CurrentPage = page;
             model.PageSize = pageSize;
-            model.TotalPages = (int)Math.Ceiling((decimal)allItems.Count / pageSize);*/
+            model.TotalPages = (int)Math.Ceiling((decimal) totalCountResponse.Count / pageSize);
 
+            //portal/queue/count 
             return View("~/Plugins/FocusPoint.SLSyncPortal/Views/Queues/Index.cshtml", model);
         }
         

@@ -1,3 +1,6 @@
+using System.Collections;
+using System.Collections.Generic;
+using System.Dynamic;
 using Newtonsoft.Json;
 using Nop.Web.Framework.Models;
 
@@ -19,7 +22,7 @@ namespace Nop.Plugins.FocusPoint.SLSyncPortal.Models
 
     public class Root
     {
-        public ServiceLayerSettings ServiceLayerSettings { get; set; }
+        public ExpandoObject ServiceLayerSettings { get; set; }
         public Logging Logging { get; set; }
     }
 

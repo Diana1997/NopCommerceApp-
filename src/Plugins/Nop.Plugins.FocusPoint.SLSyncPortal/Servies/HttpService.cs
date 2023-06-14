@@ -84,7 +84,7 @@ namespace Nop.Plugins.FocusPoint.SLSyncPortal.Servies
         public async Task<TResponse> Post<TResponse, TRequest>(string url, TRequest request, CancellationToken cancellationToken)
         {
     
-            var json = JsonConvert.SerializeObject(request);
+            var json = JsonConvert.SerializeObject(request); 
             var data = new StringContent(json, Encoding.UTF8, "application/json");
             var response = await _client.PostAsync(url, data, cancellationToken);
             if (!response.IsSuccessStatusCode)
