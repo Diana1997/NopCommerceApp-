@@ -48,20 +48,29 @@ namespace Nop.Plugins.FocusPoint.SLSyncPortal.Controllers
                     {
                         Name = item.Key,
                         Value = item.Value,
-                        Description = model.FirstOrDefault(x => x.Key.StartsWith($"_{item.Key}")).Value as string,
+                        Description = model.FirstOrDefault(x => x.Key.StartsWith($"_{item.Key}")).Key as string,
+                        DescriptionValue = model.FirstOrDefault(x => x.Key.StartsWith($"_{item.Key}")).Value as string,
                         FieldType  = model.FirstOrDefault(x => x.Key.StartsWith($"__{item.Key}")).Value as string,
                     };
                     list.Add(field);
                 }
             }
             
-            return View("~/Plugins/FocusPoint.SLSyncPortal/Views/Settings/Index.cshtml", response.ServiceLayerSettings);
+            
+            
+            return View("~/Plugins/FocusPoint.SLSyncPortal/Views/Settings/Index.cshtml", list);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Save(ServiceLayerSettings model)
+        public async Task<IActionResult> Save(dynamic model)
         {
-            var response = await _httpService.Post<object,ServiceLayerSettings>($"{_settings.Url}/portal/saveSettings", model, CancellationToken.None);
+            IDictionary<string, object> dic = new Dictionary<string, object>();
+            foreach (var item in model)
+            {
+                dic.Add(item.Name, item.Value);
+                dic.Add(item.Description, item.DescriptionValue);
+            }
+            var response = await _httpService.Post<object, IDictionary<string, object>>($"{_settings.Url}/portal/saveSettings", dic, CancellationToken.None);
             return RedirectToAction("Index");
         }
     }
@@ -72,6 +81,7 @@ public class FormField
     public string Name { set; get; }
     public object Value { set; get; }
     public string Description { set; get; }
+    public string DescriptionValue { set; get; }
     public string FieldType { set; get; }
 }
 

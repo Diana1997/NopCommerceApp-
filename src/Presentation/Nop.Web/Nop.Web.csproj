@@ -159,6 +159,16 @@
     <UpToDateCheckInput Remove="Plugins\FocusPoint.SLSyncPortal\Views\Settings\Index.cshtml" />
     <UpToDateCheckInput Remove="Plugins\FocusPoint.SLSyncPortal\Views\Synchronizations\Index.cshtml" />
     <UpToDateCheckInput Remove="Plugins\FocusPoint.SLSyncPortal\Views\_ViewImports.cshtml" />
+    <UpToDateCheckInput Remove="Plugins\FocusPoint.SLSyncPortal\Views\Configure.cshtml" />
+    <UpToDateCheckInput Remove="Plugins\FocusPoint.SLSyncPortal\Views\Connections\Index.cshtml" />
+    <UpToDateCheckInput Remove="Plugins\FocusPoint.SLSyncPortal\Views\Index.cshtml" />
+    <UpToDateCheckInput Remove="Plugins\FocusPoint.SLSyncPortal\Views\Installations\Index.cshtml" />
+    <UpToDateCheckInput Remove="Plugins\FocusPoint.SLSyncPortal\Views\Logs\Index.cshtml" />
+    <UpToDateCheckInput Remove="Plugins\FocusPoint.SLSyncPortal\Views\Queues\Index.cshtml" />
+    <UpToDateCheckInput Remove="Plugins\FocusPoint.SLSyncPortal\Views\Settings.cshtml" />
+    <UpToDateCheckInput Remove="Plugins\FocusPoint.SLSyncPortal\Views\Settings\Index.cshtml" />
+    <UpToDateCheckInput Remove="Plugins\FocusPoint.SLSyncPortal\Views\Synchronizations\Index.cshtml" />
+    <UpToDateCheckInput Remove="Plugins\FocusPoint.SLSyncPortal\Views\_ViewImports.cshtml" />
   </ItemGroup>
 
   <!-- This target execute after "Build" target.

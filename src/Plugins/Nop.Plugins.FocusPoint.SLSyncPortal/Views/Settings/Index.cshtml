@@ -1,4 +1,4 @@
-@model dynamic
+@model IList<FormField>
 
 @{
     Layout = "_ConfigurePlugin";
@@ -7,13 +7,53 @@
 <a asp-action="Index" asp-controller="SLSyncPortal" asp-area="Admin">Back to plugin menu</a>
 
 <form asp-action="Save" method="post">
-        @foreach (var property in Model)
-        {
-            <div>
-                <label for="@property.Key">@property.Key:</label>
-                <input type="text" id="@property.Key" name="@property.Key" value="@property.Value" />
-            </div>
-        }
+    <table>
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Value</th>
+            <th>Description</th>
+        </tr>
+        </thead>
+        <tbody>
+            @foreach (var property in Model)
+            {
+                <tr>
+                    <td>
+                        @property.Name
+                    </td>
+                    <td>
+                        @if (property.FieldType == FieldTypes.Boolean)
+                        {
+                            <input type="checkbox" id="@(property.Name)" name="@(property.Name)" value="@(property.Value)" />
+                        }
+                        else if (property.FieldType == FieldTypes.String)
+                        {
+                            <input type="text" id="@(property.Name)"   name="@(property.Name)"  value="@(property.Value)" />
+                        }
+                        else if (property.FieldType == FieldTypes.Int)
+                        {
+                            <input type="number" id="@(property.Name)"   name="@(property.Name)"  value="@(property.Value)" />
+                        }
+                        else
+                        {
+                            <input type="checkbox" id="@(property.Name)" name="@(property.Name)" value="@(property.Value)" />
+                        }
+                    </td>
+                    <td>
+                        @property.DescriptionValue
+                        <input type="hidden" id="@(property.Description)" name="@(property.Description)" value="@(property.DescriptionValue)" />
+                    </td>
+                </tr>
+            }
+    
+        </tbody>
+    </table>
+<div class="form-group">
+        <div class="col-md-12">
+            <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+   </div>
 
 </form>
 
