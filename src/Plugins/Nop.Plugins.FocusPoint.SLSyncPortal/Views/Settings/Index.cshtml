@@ -6,54 +6,58 @@
 
 <a asp-action="Index" asp-controller="SLSyncPortal" asp-area="Admin">Back to plugin menu</a>
 
-<form asp-action="Save" method="post">
+<form asp-action="Save" asp-controller="Settings" method="post">
     <table>
         <thead>
         <tr>
-            <th>Name</th>
-            <th>Value</th>
-            <th>Description</th>
+            <th class="col-md-2">Name</th>
+            <th class="col-md-6">Value</th>
+            <th class="col-md-4">Description</th>
         </tr>
         </thead>
         <tbody>
-            @foreach (var property in Model)
-            {
-                <tr>
-                    <td>
-                        @property.Name
-                    </td>
-                    <td>
-                        @if (property.FieldType == FieldTypes.Boolean)
-                        {
-                            <input type="checkbox" id="@(property.Name)" name="@(property.Name)" value="@(property.Value)" />
-                        }
-                        else if (property.FieldType == FieldTypes.String)
-                        {
-                            <input type="text" id="@(property.Name)"   name="@(property.Name)"  value="@(property.Value)" />
-                        }
-                        else if (property.FieldType == FieldTypes.Int)
-                        {
-                            <input type="number" id="@(property.Name)"   name="@(property.Name)"  value="@(property.Value)" />
-                        }
-                        else
-                        {
-                            <input type="checkbox" id="@(property.Name)" name="@(property.Name)" value="@(property.Value)" />
-                        }
-                    </td>
-                    <td>
-                        @property.DescriptionValue
-                        <input type="hidden" id="@(property.Description)" name="@(property.Description)" value="@(property.DescriptionValue)" />
-                    </td>
-                </tr>
-            }
-    
+        @foreach (var property in Model)
+        {
+            <tr>
+                <td>
+                    @property.Name
+                </td>
+                <td>
+                    @if (property.FieldType == FieldTypes.Boolean)
+                    {
+                        <div>
+                            <select name="@(property.Name)" id="@(property.Name)" class="form-control">
+                                <option value="false" selected='@(property.Value.ToString().ToLower() == "false" ? "selected" : null)'>False</option>
+                                <option value="true" selected='@(property.Value.ToString().ToLower() == "true" ? "selected" : null)'>True</option>
+                            </select>
+                        </div>
+                    }
+                    else if (property.FieldType == FieldTypes.String)
+                    {
+                        <div>
+                            <input type="text" id="@(property.Name)" name="@(property.Name)" value="@(property.Value)" class="form-control"/>
+                        </div>
+                    }
+                    else if (property.FieldType == FieldTypes.Int)
+                    {
+                        <div >
+                            <input type="number" id="@(property.Name)" name="@(property.Name)" value="@(property.Value)" class="form-control"/>
+                        </div>
+                    }
+                </td>
+                <td>
+                    @property.DescriptionValue
+                </td>
+            </tr>
+        }
+
         </tbody>
     </table>
-<div class="form-group">
+    <div class="form-group">
         <div class="col-md-12">
             <button type="submit" class="btn btn-primary">Save</button>
         </div>
-   </div>
+    </div>
 
 </form>
 
@@ -726,6 +730,3 @@
         </div>
    </div>
 </form>*@
-
-
-
