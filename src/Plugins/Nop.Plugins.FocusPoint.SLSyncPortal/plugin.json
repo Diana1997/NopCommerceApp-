@@ -3,7 +3,7 @@
   "FriendlyName": "FocusPoint",
   "SystemName": "FocusPoint.SLSyncPortal",
   "Version": "1.34",
-  "SupportedVersions": [ "4.20" ],
+  "SupportedVersions": [ "4.20" , "4.50"],
   "Author": "Diana",
   "DisplayOrder": 1,
   "FileName": "Nop.Plugins.FocusPoint.SLSyncPortal.dll",
