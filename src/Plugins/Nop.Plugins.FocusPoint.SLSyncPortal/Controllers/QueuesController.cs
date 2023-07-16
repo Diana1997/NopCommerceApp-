@@ -17,6 +17,7 @@ namespace Nop.Plugins.FocusPoint.SLSyncPortal.Controllers
 {
     [AuthorizeAdmin]
     [Area(AreaNames.Admin)]
+    [Route("Admin/SLSyncPortal/[controller]/[action]")]
     public class QueuesController : BasePluginController
     {
         private readonly IHttpService _httpService;

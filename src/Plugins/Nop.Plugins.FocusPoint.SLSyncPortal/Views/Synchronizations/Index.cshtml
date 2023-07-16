@@ -6,46 +6,43 @@
 
 <a asp-action="Index" asp-controller="SLSyncPortal" asp-area="Admin">Back to plugin menu</a>
 
-<div>
+
+<div class="d-flex">
     <div style="padding: 5px">
-        <button type="button" class="btn btn-primary"  id="FullItemSync">Full item sync</button>
+        <button type="button" class="btn btn-primary syncBtn"   id="FullItemSync">Full item sync</button>
     </div>
     <div style="padding: 5px">
-        <button type="button" class="btn btn-primary"  id="FullBPSync">Full BP Sync</button>
+        <button type="button" class="btn btn-primary syncBtn"   id="FullBPSync">Full BP Sync</button>
+    </div>
+    
+</div>
+
+<div class="d-flex">
+<div style="padding: 5px">
+        <button type="button" class="btn btn-primary syncBtn"   id="InventorySync">Inventory sync</button>
     </div>
     <div style="padding: 5px">
-        <button type="button" class="btn btn-primary"   id="InventorySync">Inventory sync</button>
-    </div>
-    <div style="padding: 5px">
-        <button type="button" class="btn btn-primary"   id="InventoryDeltaSync">Inventory Delta sync</button>
+        <button type="button" class="btn btn-primary syncBtn"   id="InventoryDeltaSync">Inventory Delta sync</button>
     </div>
 
 </div>
 
 <div>
-    <p>ReSync object form</p>
-    <form asp-action="ReSyncObject" method="post" id="reSycnForm">
-        <div class="form-group">
-            <div class="col-md-3">
-                <label>Object</label>
-            </div>
-            <div class="col-md-9">
-                <input type="text" asp-for="Object" class="form-control" />
-            </div>
+    <h4>ReSync object form</h4>
+    <form asp-action="ReSyncObject" method="post" id="reSycnForm" class="d-flex">
+        <div class="d-flex">
+                   <div class="d-flex">
+                       <label style="margin-top: 5px;margin-right: 5px;">Object</label>
+                       <input type="text" asp-for="Object" class="form-control"/>
+                   </div>
+                   <div class="d-flex">
+                       <label style="margin: 5px">Code</label>
+                       <input type="text" asp-for="Code" class="form-control"/>
+                   </div>
+                       <button type="submit" class="btn btn-primary f-btn" style="margin-left: 9px;">Sync</button>
         </div>
-        <div class="form-group">
-            <div class="col-md-3">
-                <label>Code</label>
-            </div>
-            <div class="col-md-9">
-                <input type="text" asp-for="Code" class="form-control" />
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-md-12">
-                <button type="submit" class="btn btn-primary">Sync</button>
-            </div>
-        </div>
+
+
     </form>
 </div>
 
@@ -58,6 +55,19 @@
     width: 55%;
     height: 35px;
     margin-bottom: 5px;
+    }
+    
+    
+    .d-flex{
+        display: flex;
+    }
+    
+    .syncBtn{
+    width: 300px;
+    }
+    
+    .f-btn{
+    width: 150px;
     }
 </style>
 

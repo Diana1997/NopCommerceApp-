@@ -15,6 +15,7 @@ namespace Nop.Plugins.FocusPoint.SLSyncPortal.Controllers
 {
     [AuthorizeAdmin]
     [Area(AreaNames.Admin)]
+    [Route("Admin/SLSyncPortal/[controller]/[action]")]
     public class LogsController : BasePluginController
     {
         private readonly IHttpService _httpService;

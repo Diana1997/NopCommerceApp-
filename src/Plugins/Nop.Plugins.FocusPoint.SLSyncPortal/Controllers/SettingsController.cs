@@ -21,6 +21,7 @@ namespace Nop.Plugins.FocusPoint.SLSyncPortal.Controllers
 {
     [AuthorizeAdmin]
     [Area(AreaNames.Admin)]
+    [Route("Admin/SLSyncPortal/[controller]/[action]")]
     public class SettingsController : BasePluginController
     {
         private readonly  SLSyncPortalPluginSettings _settings;
