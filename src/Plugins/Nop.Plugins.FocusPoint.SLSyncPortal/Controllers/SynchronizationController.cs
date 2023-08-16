@@ -3,7 +3,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Nop.Core;
 using Nop.Plugins.FocusPoint.SLSyncPortal.Models;
-using Nop.Plugins.FocusPoint.SLSyncPortal.Servies;
+using Nop.Plugins.FocusPoint.SLSyncPortal.Responses;
+using Nop.Plugins.FocusPoint.SLSyncPortal.Services;
 using Nop.Services.Configuration;
 using Nop.Web.Framework;
 using Nop.Web.Framework.Controllers;
@@ -69,8 +70,12 @@ namespace Nop.Plugins.FocusPoint.SLSyncPortal.Controllers
         [HttpPost]
         public async Task<IActionResult> ReSyncObject([FromForm]ReSyncObject model)
         {
-            //status - boolean, message
-            var response = await _httpService.Get($"{_settings.Url}/portal/sync?Object={model.Object}&Code={model.Code}", CancellationToken.None);
+            var response = await _httpService.Get<ReSyncResponse>($"{_settings.Url}/portal/sync?Object={model.Object}&Code={model.Code}", CancellationToken.None);
+
+            if (!response.Status)
+            {
+                return BadRequest(response.Message);
+            }
             return Json(response);
         }
     }

@@ -1,8 +1,10 @@
-﻿using System.Threading;
+﻿using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Nop.Core;
-using Nop.Plugins.FocusPoint.SLSyncPortal.Servies;
+using Nop.Plugins.FocusPoint.SLSyncPortal.Responses;
+using Nop.Plugins.FocusPoint.SLSyncPortal.Services;
 using Nop.Services.Configuration;
 using Nop.Services.Tasks;
 using Nop.Web.Framework;
@@ -19,7 +21,6 @@ namespace Nop.Plugins.FocusPoint.SLSyncPortal.Controllers
         private readonly  SLSyncPortalPluginSettings _settings;
         private readonly IHttpService _httpService;
 
-        //400
         public InstallationController(
             ISettingService settingService,
             IStoreContext storeContext, 
@@ -62,7 +63,7 @@ namespace Nop.Plugins.FocusPoint.SLSyncPortal.Controllers
         [HttpGet]
         public async Task<IActionResult> EventUDT()
         {
-            var response = await _httpService.Get($"{_settings.Url}/portal/install/PTN", CancellationToken.None);
+            var response = await _httpService.Get<IList<EventUDTResponse>>($"{_settings.Url}/portal/install/PTN", CancellationToken.None);
             return Json(response);
         }
     }

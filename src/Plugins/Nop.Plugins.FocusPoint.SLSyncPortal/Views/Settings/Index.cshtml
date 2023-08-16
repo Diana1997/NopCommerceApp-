@@ -4,6 +4,8 @@
     Layout = "_ConfigurePlugin";
 }
 
+<link rel="stylesheet" href="~/Plugins/FocusPoint.SLSyncPortal/Styles/toastr.min.css"/>
+
 <a asp-action="Index" asp-controller="SLSyncPortal" asp-area="Admin">Back to plugin menu</a>
 
 <div class="page-body">
@@ -41,12 +43,20 @@
                         else if (property.FieldType == FieldTypes.String)
                         {
                             <div>
-                                <input type="text" id="@(property.Name)" name="@(property.Name)" value="@(property.Value)" class="form-control"/>
+                                @if (property.Name.ToLower().Contains("password"))
+                                {
+                                    <input type="password" id="@(property.Name)" name="@(property.Name)" value="@(property.Value)" class="form-control"/>
+                                }
+                                else
+                                {
+                                    <input type="text" id="@(property.Name)" name="@(property.Name)" value="@(property.Value)" class="form-control"/>
+
+                                }
                             </div>
                         }
                         else if (property.FieldType == FieldTypes.Int)
                         {
-                            <div >
+                            <div>
                                 <input type="number" id="@(property.Name)" name="@(property.Name)" value="@(property.Value)" class="form-control"/>
                             </div>
                         }
@@ -70,4 +80,33 @@
         padding: 5px;
     }
 </style>
+<script src="~/Plugins/FocusPoint.SLSyncPortal/Scripts/jquery-3.6.0.min.js"></script>
+<script src="~/Plugins/FocusPoint.SLSyncPortal/Scripts/toastr.min.js"></script>
+<script src="~/Plugins/FocusPoint.SLSyncPortal/Scripts/notification.js"></script>
+<script>
+    $(document).ready(function() {
+      $('form').submit(function(event) {
+        event.preventDefault(); 
+    
+$('#save').prop('disabled', true);
+        let formData = $(this).serialize();
+    
+        $.ajax({
+          type: 'POST',
+          url: $(this).attr('action'), 
+          data: formData,
+          success: function(response) {
+                   toastr.success('Action completed successfully.');
+                   $('#save').prop('disabled', false);
 
+          },
+          error: function( error) {
+              console.log(error);
+              $('#save').prop('disabled', false);
+              toastr.error(error.responseText);
+
+          }
+        });
+      });
+    });
+</script>

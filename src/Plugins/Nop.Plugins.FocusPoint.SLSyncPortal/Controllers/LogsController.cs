@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Nop.Core;
 using Nop.Plugins.FocusPoint.SLSyncPortal.Responses;
-using Nop.Plugins.FocusPoint.SLSyncPortal.Servies;
+using Nop.Plugins.FocusPoint.SLSyncPortal.Services;
 using Nop.Services.Configuration;
 using Nop.Web.Framework;
 using Nop.Web.Framework.Controllers;

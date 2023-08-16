@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Nop.Core;
 using Nop.Plugins.FocusPoint.SLSyncPortal.Models;
-using Nop.Plugins.FocusPoint.SLSyncPortal.Servies;
+using Nop.Plugins.FocusPoint.SLSyncPortal.Responses;
+using Nop.Plugins.FocusPoint.SLSyncPortal.Services;
 using Nop.Services.Configuration;
 using Nop.Web.Framework;
 using Nop.Web.Framework.Controllers;
@@ -36,12 +37,21 @@ namespace Nop.Plugins.FocusPoint.SLSyncPortal.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
+            VersionResponse version = null;
             var settings = GetSettings();
-            string version = string.Empty;
-            if(settings != null)
+            try
             {
-                version = await _httpService.Get($"{settings.Url}/portal/getVersion", CancellationToken.None);
+                if(settings != null)
+                {
+                    version = await _httpService.Get<VersionResponse>($"{settings.Url}/portal/settings/value",
+                        CancellationToken.None, true);
+                }
             }
+            catch
+            {
+                
+            }
+            
 
             return View("~/Plugins/FocusPoint.SLSyncPortal/Views/Index.cshtml", version);
         }

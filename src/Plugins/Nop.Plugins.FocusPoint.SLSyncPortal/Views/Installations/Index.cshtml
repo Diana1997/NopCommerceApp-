@@ -4,39 +4,35 @@
 
 <a asp-action="Index" asp-controller="SLSyncPortal" asp-area="Admin">Back to plugin menu</a>
 
-@*
-<div class="d-flex">
-    <div>
-        <button type="button" class="btn btn-primary" id="createUo">Create.UO</button>
-    </div>
-    <div>
-        <button type="button" class="btn btn-primary"  id="FIT" >FIT.WS1</button>
-    </div>
-</div>
-
-<div class="d-flex">
-    <div>
-        <button type="button" class="btn btn-primary"  id="storedProcedures">Stored procedures</button>
-    </div>
-    <div>
-         <button type="button" class="btn btn-primary"  id="eventUdt">Event UDT</button>
-    </div>
-</div>
-*@
-
 
 <div>
     <div style="padding: 5px">
-        <button type="button" class="btn btn-primary" id="createUo">Create.UO</button>
+        <button type="button" class="btn btn-primary" id="createUo">
+            <span class="spinner-border spinner-border-sm btn-spinner" role="status" 
+                          aria-hidden="true" style="display: none;     margin-right: 8px;"></span>
+            Create.UO
+        </button>
     </div>
     <div style="padding: 5px">
-        <button type="button" class="btn btn-primary"  id="FIT" >FIT.WS1</button>
+        <button type="button" class="btn btn-primary" id="FIT">
+            <span class="spinner-border spinner-border-sm btn-spinner" role="status" 
+                          aria-hidden="true" style="display: none;     margin-right: 8px;"></span>
+            FIT.WS1
+        </button>
     </div>
     <div style="padding: 5px">
-        <button type="button" class="btn btn-primary"  id="storedProcedures">Stored procedures</button>
+        <button type="button" class="btn btn-primary" id="storedProcedures">
+            <span class="spinner-border spinner-border-sm btn-spinner" role="status" 
+                          aria-hidden="true" style="display: none;     margin-right: 8px;"></span>
+            Stored procedures
+        </button>
     </div>
     <div style="padding: 5px">
-        <button type="button" class="btn btn-primary"  id="eventUdt">Event UDT</button>
+        <button type="button" class="btn btn-primary" id="eventUdt">
+            <span class="spinner-border spinner-border-sm btn-spinner" role="status" 
+                          aria-hidden="true" style="display: none;     margin-right: 8px;"></span>
+            Event UDT
+        </button>
     </div>
 </div>
 
@@ -44,9 +40,24 @@
     @ViewBag.Response
 </div>
 
+<table id="data-table">
+    <thead>
+        <tr>
+            <th>ObjectType</th>
+            <th>IsSuccessful</th>
+            <th>ID</th>
+            <th>Message</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
+<link rel="stylesheet" href="~/Plugins/FocusPoint.SLSyncPortal/Styles/toastr.min.css"/>
+<link rel="stylesheet" href="~/Plugins/FocusPoint.SLSyncPortal/Styles/spinner.css"/>
 <style>
+
+
+
     
     button{
     width: 55%;
@@ -61,37 +72,93 @@
     .d-flex{
     display: flex;
     }
+    
+    #data-table {
+       display: none;
+      }
+            
+    #data-table {
+        display: none;
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    #data-table th, #data-table td {
+        border: 1px solid #ccc;
+        padding: 8px;
+        text-align: left;
+    }
+
+    #data-table th {
+        background-color: #f2f2f2;
+    }
 </style>
 
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<script src="~/Plugins/FocusPoint.SLSyncPortal/Scripts/jquery-3.6.0.min.js"></script>
+<script src="~/Plugins/FocusPoint.SLSyncPortal/Scripts/toastr.min.js"></script>
 <script src="~/Plugins/FocusPoint.SLSyncPortal/Scripts/notification.js"></script>
 <script>
     $(document).ready(function () {
-        handleButtonClick('createUo', '@Url.Action("CreateUo", "Installation")');
-        handleButtonClick('FIT', '@Url.Action("InstallWs1", "Installation")');
-        handleButtonClick('storedProcedures', '@Url.Action("StoredProcedures", "Installation")');
-        handleButtonClick('eventUdt', '@Url.Action("EventUDT", "Installation")');
-        
+              handleButtonClick('createUo', '@Url.Action("CreateUo", "Installation", true)'); 
+              handleButtonClick('FIT', '@Url.Action("InstallWs1", "Installation")');
+              handleButtonClick('storedProcedures', '@Url.Action("StoredProcedures", "Installation")');
+              handleButtonClick('eventUdt', '@Url.Action("EventUDT", "Installation")', true);
     });
     
     
-   function handleButtonClick(buttonId, actionUrl) {
+function handleButtonClick(buttonId, actionUrl, handleTable = false) {
+       let button = $('#' + buttonId);
+       
        $('#message').text('');
-       $('#' + buttonId).click(function() {
+       
+       button.click(function() {
+                     $(this).find('.btn-spinner').show();
+                             button.prop('disabled', true);
+
            $.ajax({
                url: actionUrl,
                type: 'GET',
-               dataType: 'html',
+               dataType: 'json',
                success: function(result) {
-                     $("#message").text(result);
+                             button.prop('disabled', false);
+                                 button.find('.btn-spinner').hide();
                    toastr.success('Action completed successfully.');
+                   
+                   if (handleTable){
+                       handleDataToTable(result);
+                   }
                },
                error: function(xhr, status, error) {
                    toastr.error('Action failed.');
+               },
+               complete: function() {
+                   button.prop('disabled', false);
+              button.find('.btn-spinner').hide();
+
                }
            });
        });
    }
+   
+   
+function handleDataToTable(response){
+
+    $('#data-table').hide();
+    let tbody = $('#data-table tbody');
+    tbody.empty();
+    
+    
+    $.each(response, function (index, item) {
+    var row = $('<tr>');
+    row.append($('<td>').text(item.ObjectType));
+    row.append($('<td>').text(item.IsSuccessful));
+    row.append($('<td>').text(item.ID));
+    row.append($('<td>').text(item.Message));
+    tbody.append(row);
+    });
+    
+    $('#data-table').show();
+}
 </script>

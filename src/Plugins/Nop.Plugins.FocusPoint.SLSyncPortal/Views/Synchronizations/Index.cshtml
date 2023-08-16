@@ -7,24 +7,59 @@
 <a asp-action="Index" asp-controller="SLSyncPortal" asp-area="Admin">Back to plugin menu</a>
 
 
+<style>
+    .spinner-border {
+      width: 1.5rem;
+      height: 1.5rem;
+      border-width: 0.2em;
+    }
+    
+    .syncBtn {
+      display: inline-flex;
+      align-items: center;
+    }
+    
+    .d-none {
+      display: none !important; 
+    }
+</style>
+<link rel="stylesheet" href="~/Plugins/FocusPoint.SLSyncPortal/Styles/toastr.min.css"/>
+<link rel="stylesheet" href="~/Plugins/FocusPoint.SLSyncPortal/Styles/spinner.css"/>
+
 <div class="d-flex">
     <div style="padding: 5px">
-        <button type="button" class="btn btn-primary syncBtn"   id="FullItemSync">Full item sync</button>
+        <button type="button" class="btn btn-primary syncBtn" id="FullItemSync">
+            <span class="spinner-border spinner-border-sm btn-spinner" role="status" 
+                          aria-hidden="true" style="display: none;     margin-right: 8px;"></span>
+            Full item sync
+        </button>
     </div>
     <div style="padding: 5px">
-        <button type="button" class="btn btn-primary syncBtn"   id="FullBPSync">Full BP Sync</button>
+   
+        <button type="button" class="btn btn-primary syncBtn" id="FullBPSync">
+            <span class="spinner-border spinner-border-sm btn-spinner" role="status" 
+                          aria-hidden="true" style="display: none;     margin-right: 8px;"></span>
+            Full BP Sync
+        </button>
     </div>
-    
 </div>
 
 <div class="d-flex">
-<div style="padding: 5px">
-        <button type="button" class="btn btn-primary syncBtn"   id="InventorySync">Inventory sync</button>
+    <div style="padding: 5px">
+        <button type="button" class="btn btn-primary syncBtn" id="InventorySync">
+            <span class="spinner-border spinner-border-sm btn-spinner" role="status" 
+                          aria-hidden="true" style="display: none;     margin-right: 8px;"></span>
+            Inventory sync
+        </button>
     </div>
     <div style="padding: 5px">
-        <button type="button" class="btn btn-primary syncBtn"   id="InventoryDeltaSync">Inventory Delta sync</button>
+        
+        <button type="button" class="btn btn-primary syncBtn" id="InventoryDeltaSync">
+            <span class="spinner-border spinner-border-sm btn-spinner" role="status" 
+                          aria-hidden="true" style="display: none;     margin-right: 8px;"></span>
+            Inventory Delta sync
+        </button>
     </div>
-
 </div>
 
 <div>
@@ -69,11 +104,29 @@
     .f-btn{
     width: 150px;
     }
+    
+    .spinner-border-sm {
+        width: 1rem;
+        height: 1rem;
+        border-width: 0.2em;
+    }
+    
+    .spinner-border {
+        display: inline-block;
+        width: 2rem;
+        height: 2rem;
+        vertical-align: text-bottom;
+        border: 0.25em solid currentColor;
+        border-right-color: transparent;
+        border-radius: 50%;
+        -webkit-animation: .75s linear infinite spinner-border;
+        animation: .75s linear infinite spinner-border;
+    }
 </style>
 
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<script src="~/Plugins/FocusPoint.SLSyncPortal/Scripts/jquery-3.6.0.min.js"></script>
+<script src="~/Plugins/FocusPoint.SLSyncPortal/Scripts/toastr.min.js"></script>
 <script src="~/Plugins/FocusPoint.SLSyncPortal/Scripts/notification.js"></script>
 <script>
     $(document).ready(function () {
@@ -88,7 +141,8 @@
 
 
     $('#reSycnForm').submit(function (e) {
-        e.preventDefault(); // prevent default form submission behavior
+        e.preventDefault(); 
+        clearMessage();
         let form = $(this);
         console.log(form.serialize);
         $.ajax({
@@ -96,30 +150,44 @@
             type: 'POST',
             data: form.serialize(),
             success: function (result) {
-                $("#message").text(result);
                 toastr.success('Action completed successfully.');
             },
             error: function (xhr, status, error) {
-                toastr.error('Action failed.');
+               $("#message").text(error.responseText);
+               toastr.error('Action failed.');
             }
         });
     });
 
    function handleButtonClick(buttonId, actionUrl) {
-       $('#message').text('');
-       $('#' + buttonId).click(function() {
+       let button = $('#' + buttonId);
+
+      clearMessage();
+       
+       button.click(function() {
+           button.prop('disabled', true);
+
+           $(this).find('.btn-spinner').show();
+
            $.ajax({
                url: actionUrl,
                type: 'GET',
                dataType: 'html',
                success: function(result) {
-                     $("#message").text(result);
                    toastr.success('Action completed successfully.');
                },
                error: function(xhr, status, error) {
                    toastr.error('Action failed.');
+               },
+               complete: function() {
+                   button.prop('disabled', false);
+                   button.find('.btn-spinner').hide();
                }
            });
        });
+   }
+
+   function clearMessage() { 
+       $('#message').text('');
    }
 </script>

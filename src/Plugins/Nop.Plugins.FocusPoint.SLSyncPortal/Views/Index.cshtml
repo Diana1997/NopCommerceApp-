@@ -1,4 +1,95 @@
-@model string
+@model Nop.Plugins.FocusPoint.SLSyncPortal.Responses.VersionResponse
+@{
+    Layout = "_ConfigurePlugin";
+}
+
+@if (Model != null)
+{
+    <div class="d-flex">
+        <p>Version - @Model.Value </p>
+        <span> , </span>
+        <p style="margin-left:4px">BuildDateTime @Model.BuildDateTime
+    </div>
+    <div class="d-flex">
+        <div class="item-content">
+            <a asp-action="Index" asp-controller="Queues" asp-area="Admin">
+                <div class="item-bg">
+                    <p class="item">Queues</p>
+                </div>
+            </a>
+        </div>
+        <div class="item-content">
+            <a asp-action="Index" asp-controller="Logs" asp-area="Admin">
+                <div class="item-bg">
+                    <p class="item">Logs</p>
+                </div>
+            </a>
+        </div>
+        <div class="item-content">
+            <a asp-action="Index" asp-controller="Settings" asp-area="Admin">
+                <div class="item-bg">
+                    <p class="item">Settings</p>
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="d-flex">
+        <div class="item-content">
+            <a asp-action="Index" asp-controller="Installation" asp-area="Admin">
+                <div class="item-bg">
+                    <p class="item">Installations</p>
+                </div>
+                
+            </a>
+    
+        </div>
+        <div class="item-content">
+            <a asp-action="Index" asp-controller="Synchronization" asp-area="Admin">
+                   <div class="item-bg">
+                               <p class="item">Synchronization</p>
+                   </div> 
+                
+            </a>
+    
+        </div>
+    </div>
+}
+else
+{
+    <div class="d-flex">SLSync  is not available. </div>
+}
+
+
+<style>
+    .item-bg{
+    display: flex;
+    align-items: center;
+        width: 148px;
+        height: 148px;
+        border: solid 1px;
+        background-color: #68a8d0;
+        border-radius: 5px;
+    }
+    
+    .item{
+        color: white;
+            margin: auto;
+            font-size: 17px;
+        }
+    
+    
+    .d-flex{
+        display: flex;
+        justify-content: center;
+    }
+    
+    .item-content{
+        padding-right: 15px;
+        padding-bottom: 15px;
+    }
+</style>
+
+@*@model string
 @{
     Layout = "_ConfigurePlugin";
 }
@@ -53,7 +144,7 @@
 <p>Version - @Model</p>
 
 
-@*<a asp-action="Index" asp-controller="Queues" asp-area="Admin"> Queues</a>
+$1$<a asp-action="Index" asp-controller="Queues" asp-area="Admin"> Queues</a>
 <br/>
 <a asp-action="Index" asp-controller="Logs" asp-area="Admin"> Logs</a>
 <br/>
@@ -63,7 +154,7 @@
 <br/>
 <a asp-action="Index" asp-controller="Synchronization" asp-area="Admin"> Synchronization</a>
 <hr />
-<p>Version - @Model</p>*@
+<p>Version - @Model</p>#1#
 
 <style>
     .item-bg{
@@ -92,4 +183,4 @@
         padding-right: 15px;
         padding-bottom: 15px;
     }
-</style>
+</style>*@

@@ -1,16 +1,13 @@
 using System;
-using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Nop.Plugins.FocusPoint.SLSyncPortal.Exceptions;
 
-
-namespace Nop.Plugins.FocusPoint.SLSyncPortal.Servies
+namespace Nop.Plugins.FocusPoint.SLSyncPortal.Services
 {
     public class HttpService : IHttpService
     {
@@ -27,8 +24,15 @@ namespace Nop.Plugins.FocusPoint.SLSyncPortal.Servies
         }
 
 
-        public async Task<TResponse> Get<TResponse>(string url, CancellationToken cancellationToken)
+        public async Task<TResponse> Get<TResponse>(string url, CancellationToken cancellationToken,
+            bool changeTimeout = false)
         {
+            
+            if (changeTimeout)
+            {
+                _client.Timeout = TimeSpan.FromSeconds(10);
+            }
+
             
             var response = await _client.GetAsync(url, cancellationToken);
             if (response.IsSuccessStatusCode)

@@ -2,7 +2,7 @@ using Autofac;
 using Nop.Core.Configuration;
 using Nop.Core.Infrastructure;
 using Nop.Core.Infrastructure.DependencyManagement;
-using Nop.Plugins.FocusPoint.SLSyncPortal.Servies;
+using Nop.Plugins.FocusPoint.SLSyncPortal.Services;
 
 namespace Nop.Plugins.FocusPoint.SLSyncPortal
 {

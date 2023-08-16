@@ -11,6 +11,9 @@ namespace Nop.Plugins.FocusPoint.SLSyncPortal.Models
         public int CurrentPage { set; get; }
         public int PageSize  { set; get; }
         public int TotalPages   { set; get; }
-        
+       
+        public int ItemsCount { set; get; }
+        public int StartPage { set; get; }
+        public int EndPage { set; get; }
     }
 }
